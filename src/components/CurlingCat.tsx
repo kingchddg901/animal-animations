@@ -79,19 +79,19 @@ const CurlingCat = () => {
 
         {isWalking && (
           <style>{`
-            .w-bounce { animation: wBounce 0.5s ease-in-out infinite; }
-            .w-fl { animation: wStepA 0.5s ease-in-out infinite; transform-origin: 165px 200px; }
-            .w-fr { animation: wStepB 0.5s ease-in-out infinite; transform-origin: 195px 200px; }
-            .w-bl { animation: wStepB 0.5s ease-in-out infinite; transform-origin: 305px 195px; }
-            .w-br { animation: wStepA 0.5s ease-in-out infinite; transform-origin: 330px 195px; }
-            .w-tail { animation: wTailSway 0.6s ease-in-out infinite alternate; transform-origin: 340px 180px; }
-            .w-head { animation: wHeadBob 0.5s ease-in-out infinite; transform-origin: 140px 160px; }
+            .w-bounce { animation: wBounce 0.8s ease-in-out infinite; }
+            .w-fl { animation: wStepA 0.8s ease-in-out infinite; transform-origin: 162px 198px; }
+            .w-fr { animation: wStepB 0.8s ease-in-out infinite; transform-origin: 190px 198px; }
+            .w-bl { animation: wStepB 0.8s ease-in-out infinite; transform-origin: 300px 195px; }
+            .w-br { animation: wStepA 0.8s ease-in-out infinite; transform-origin: 325px 192px; }
+            .w-tail { animation: wTailSway 0.8s ease-in-out infinite alternate; transform-origin: 340px 180px; }
+            .w-head { animation: wHeadBob 0.8s ease-in-out infinite; transform-origin: 140px 160px; }
 
-            @keyframes wBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-            @keyframes wStepA { 0%,100% { transform: rotate(-20deg); } 50% { transform: rotate(20deg); } }
-            @keyframes wStepB { 0%,100% { transform: rotate(20deg); } 50% { transform: rotate(-20deg); } }
-            @keyframes wTailSway { 0% { transform: rotate(-15deg); } 100% { transform: rotate(15deg); } }
-            @keyframes wHeadBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+            @keyframes wBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+            @keyframes wStepA { 0% { transform: rotate(-10deg); } 25% { transform: rotate(10deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-10deg); } 100% { transform: rotate(-10deg); } }
+            @keyframes wStepB { 0% { transform: rotate(10deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } 100% { transform: rotate(10deg); } }
+            @keyframes wTailSway { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
+            @keyframes wHeadBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
           `}</style>
         )}
 
