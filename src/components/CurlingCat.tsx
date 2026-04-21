@@ -23,21 +23,21 @@ const CurlingCat = () => {
   const isStanding = pose === "standing";
 
   const headStyle: React.CSSProperties | undefined = isCurled
-    ? { transform: "translate(30px, 80px) rotate(35deg)", transformOrigin: "200px 100px", transition: "transform 0.8s ease" }
+    ? { transform: "translate(25px, 95px) rotate(40deg)", transformOrigin: "200px 105px", transition: "transform 0.8s ease" }
     : (isStanding || isWalking)
-    ? { transform: "translate(0, 0) rotate(0deg)", transformOrigin: "200px 100px", transition: "transform 0.8s ease" }
+    ? { transform: "translate(0, 0) rotate(0deg)", transformOrigin: "200px 105px", transition: "transform 0.8s ease" }
     : undefined;
 
   const bodyStyle: React.CSSProperties | undefined = isCurled
-    ? { transform: "rotate(20deg)", transformOrigin: "200px 280px", transition: "transform 0.8s ease" }
+    ? { transform: "rotate(22deg)", transformOrigin: "200px 300px", transition: "transform 0.8s ease" }
     : (isStanding || isWalking)
-    ? { transform: "rotate(0deg)", transformOrigin: "200px 280px", transition: "transform 0.8s ease" }
+    ? { transform: "rotate(0deg)", transformOrigin: "200px 300px", transition: "transform 0.8s ease" }
     : undefined;
 
   const tailStyle: React.CSSProperties | undefined = isCurled
-    ? { transform: "rotate(-50deg) scaleX(-1)", transformOrigin: "210px 270px", transition: "transform 0.8s ease" }
+    ? { transform: "rotate(-50deg) scaleX(-1)", transformOrigin: "215px 280px", transition: "transform 0.8s ease" }
     : (isStanding || isWalking)
-    ? { transform: "rotate(0deg) scaleX(1)", transformOrigin: "210px 270px", transition: "transform 0.8s ease" }
+    ? { transform: "rotate(0deg) scaleX(1)", transformOrigin: "215px 280px", transition: "transform 0.8s ease" }
     : undefined;
 
   const legsStyle: React.CSSProperties | undefined = isCurled
@@ -55,24 +55,24 @@ const CurlingCat = () => {
   return (
     <div className="flex flex-col items-center gap-4">
       <svg
-        viewBox="0 0 400 380"
-        width="360"
+        viewBox="0 0 400 400"
+        width="340"
         height="340"
         xmlns="http://www.w3.org/2000/svg"
       >
         {isAnimating && (
           <style>{`
-            .head { animation: headMove 3s ease-in-out infinite alternate; transform-origin: 200px 100px; }
-            .body-group { animation: bodyBend 3s ease-in-out infinite alternate; transform-origin: 200px 280px; }
-            .tail-group { animation: tailWrap 3s ease-in-out infinite alternate; transform-origin: 210px 270px; }
+            .head { animation: headMove 3s ease-in-out infinite alternate; transform-origin: 200px 105px; }
+            .body-group { animation: bodyBend 3s ease-in-out infinite alternate; transform-origin: 200px 300px; }
+            .tail-group { animation: tailWrap 3s ease-in-out infinite alternate; transform-origin: 215px 280px; }
             .front-legs { animation: legsFold 3s ease-in-out infinite alternate; transform-origin: center bottom; }
             .back-legs { animation: legsFold 3s ease-in-out infinite alternate; transform-origin: center bottom; }
             .eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: center center; }
 
-            @keyframes headMove { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(30px,80px) rotate(35deg); } }
-            @keyframes bodyBend { 0% { transform: rotate(0deg); } 100% { transform: rotate(20deg); } }
+            @keyframes headMove { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(25px,95px) rotate(40deg); } }
+            @keyframes bodyBend { 0% { transform: rotate(0deg); } 100% { transform: rotate(22deg); } }
             @keyframes tailWrap { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(-50deg) scaleX(-1); } }
-            @keyframes legsFold { 0% { opacity:1; transform:scaleY(1); } 50% { opacity:1; transform:scaleY(0.6); } 100% { opacity:0; transform:scaleY(0); } }
+            @keyframes legsFold { 0% { opacity:1; transform:scaleY(1); } 50% { opacity:1; transform:scaleY(0.5); } 100% { opacity:0; transform:scaleY(0); } }
             @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
           `}</style>
         )}
@@ -80,16 +80,16 @@ const CurlingCat = () => {
         {isWalking && (
           <style>{`
             .walk-bounce { animation: walkBounce 0.5s ease-in-out infinite; }
-            .fl-1 { animation: stepA 0.5s ease-in-out infinite; transform-origin: 185px 260px; }
-            .fl-2 { animation: stepB 0.5s ease-in-out infinite; transform-origin: 200px 260px; }
-            .bl-1 { animation: stepB 0.5s ease-in-out infinite; transform-origin: 190px 258px; }
-            .bl-2 { animation: stepA 0.5s ease-in-out infinite; transform-origin: 205px 258px; }
-            .walk-tail { animation: tailSway 0.5s ease-in-out infinite alternate; transform-origin: 210px 270px; }
-            .walk-head { animation: headBob 0.5s ease-in-out infinite; transform-origin: 200px 120px; }
+            .fl-1 { animation: stepA 0.5s ease-in-out infinite; transform-origin: 185px 275px; }
+            .fl-2 { animation: stepB 0.5s ease-in-out infinite; transform-origin: 205px 275px; }
+            .bl-1 { animation: stepB 0.5s ease-in-out infinite; transform-origin: 188px 270px; }
+            .bl-2 { animation: stepA 0.5s ease-in-out infinite; transform-origin: 210px 270px; }
+            .walk-tail { animation: tailSway 0.5s ease-in-out infinite alternate; transform-origin: 215px 280px; }
+            .walk-head { animation: headBob 0.5s ease-in-out infinite; transform-origin: 200px 130px; }
 
             @keyframes walkBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-            @keyframes stepA { 0% { transform: rotate(-18deg); } 50% { transform: rotate(18deg); } 100% { transform: rotate(-18deg); } }
-            @keyframes stepB { 0% { transform: rotate(18deg); } 50% { transform: rotate(-18deg); } 100% { transform: rotate(18deg); } }
+            @keyframes stepA { 0% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } 100% { transform: rotate(-16deg); } }
+            @keyframes stepB { 0% { transform: rotate(16deg); } 50% { transform: rotate(-16deg); } 100% { transform: rotate(16deg); } }
             @keyframes tailSway { 0% { transform: rotate(-12deg); } 100% { transform: rotate(12deg); } }
             @keyframes headBob { 0%,100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-3px) rotate(-2deg); } 75% { transform: translateY(-3px) rotate(2deg); } }
           `}</style>
@@ -97,204 +97,236 @@ const CurlingCat = () => {
 
         <g className={isAnimating ? "body-group" : isWalking ? "walk-bounce" : ""} style={bodyStyle}>
 
-          {/* === BODY === Natural cat torso shape */}
+          {/* === BODY === Organic cat torso - curved back, narrow waist, wider hips */}
           <path
-            d="M170,150 C160,170 155,210 158,240 C160,255 168,265 180,268
-               L215,268 C228,265 236,255 238,240 C241,210 236,170 226,150 Z"
+            d="M180,140 
+               C168,155 162,175 160,195
+               C157,220 160,245 165,260
+               C168,268 174,275 182,278
+               L216,278
+               C224,275 230,268 233,260
+               C238,245 241,220 238,195
+               C236,175 230,155 218,140 Z"
             fill="#111"
           />
-          {/* Chest / belly highlight area for shape */}
+          {/* Curved back spine line for depth */}
           <path
-            d="M175,200 C172,220 174,250 182,265
-               L214,265 C222,250 224,220 221,200
-               C218,185 178,185 175,200 Z"
-            fill="#151515"
+            d="M185,142 C178,160 174,185 175,210 C176,235 180,260 185,275"
+            stroke="#1a1a1a"
+            strokeWidth="3"
+            fill="none"
+            opacity="0.3"
+          />
+          {/* Chest area - subtle lighter fill */}
+          <path
+            d="M185,210 C183,230 185,255 190,275
+               L208,275
+               C213,255 215,230 213,210
+               C210,195 188,195 185,210 Z"
+            fill="#161616"
           />
 
-          {/* === FRONT LEGS === */}
+          {/* Neck connection */}
+          <path
+            d="M182,142 C185,135 190,130 198,128
+               C206,130 212,135 216,142"
+            fill="#111"
+          />
+
+          {/* === FRONT LEGS === Shaped like real cat legs with joints */}
           <g className={isAnimating ? "front-legs" : ""} style={legsStyle}>
-            {/* Left front leg */}
+            {/* Left front leg - with shoulder and slight knee bend */}
             <g className={isWalking ? "fl-1" : ""}>
               <path
-                d="M178,260 C176,275 174,300 172,320
-                   C171,328 174,335 180,336
-                   C186,337 190,332 190,325
-                   C190,315 188,290 186,268"
+                d="M176,270 
+                   C174,280 172,295 170,310
+                   C169,320 168,330 168,338
+                   C168,344 172,348 178,348
+                   C184,348 188,344 188,338
+                   C188,330 187,315 186,300
+                   C185,290 184,280 183,272"
                 fill="#111"
               />
-              {/* Paw */}
-              <ellipse cx="180" cy="335" rx="10" ry="5" fill="#111" />
+              {/* Paw with toes */}
+              <path d="M168,345 C166,348 168,352 174,353 L182,353 C188,352 190,348 188,345" fill="#111"/>
             </g>
             {/* Right front leg */}
             <g className={isWalking ? "fl-2" : ""}>
               <path
-                d="M206,260 C204,275 202,300 200,320
-                   C199,328 202,335 208,336
-                   C214,337 218,332 218,325
-                   C218,315 216,290 214,268"
+                d="M214,272 
+                   C213,280 212,290 211,300
+                   C210,315 209,330 209,338
+                   C209,344 213,348 219,348
+                   C225,348 229,344 229,338
+                   C229,330 228,320 227,310
+                   C225,295 223,280 221,270"
                 fill="#111"
               />
-              <ellipse cx="208" cy="335" rx="10" ry="5" fill="#111" />
+              <path d="M209,345 C207,348 209,352 215,353 L223,353 C229,352 231,348 229,345" fill="#111"/>
             </g>
           </g>
 
-          {/* === BACK LEGS (behind body, slightly darker) === */}
+          {/* === BACK LEGS (slightly darker, behind body) === */}
           <g className={isAnimating ? "back-legs" : ""} style={legsStyle}>
             <g className={isWalking ? "bl-1" : ""}>
               <path
-                d="M172,255 C168,270 165,295 164,315
-                   C163,325 167,332 173,333 C179,333 182,328 182,320
-                   C182,305 180,280 179,260"
+                d="M170,265
+                   C166,278 163,295 161,312
+                   C160,325 160,335 162,342
+                   C164,347 168,350 174,350
+                   C179,349 182,345 181,340
+                   C180,332 178,315 177,300
+                   C176,288 175,278 174,270"
                 fill="#0d0d0d"
               />
             </g>
             <g className={isWalking ? "bl-2" : ""}>
               <path
-                d="M222,255 C226,270 229,295 230,315
-                   C231,325 227,332 221,333 C215,333 212,328 212,320
-                   C212,305 214,280 215,260"
+                d="M225,270
+                   C226,278 227,288 228,300
+                   C229,315 230,332 229,340
+                   C228,345 225,349 220,350
+                   C215,350 212,347 213,342
+                   C214,335 215,325 216,312
+                   C218,295 220,278 224,265"
                 fill="#0d0d0d"
               />
             </g>
           </g>
 
-          {/* === TAIL === */}
+          {/* === TAIL === Elegant curve */}
           <g className={isAnimating ? "tail-group" : isWalking ? "walk-tail" : ""} style={tailStyle}>
             <path
-              d="M230,260 C245,250 265,230 278,205
-                 C288,185 292,165 288,148
-                 C286,140 282,135 278,138"
+              d="M228,272 
+                 C240,262 258,245 272,222
+                 C282,204 288,182 286,162
+                 C285,150 280,142 275,145
+                 C272,148 272,155 273,165"
               stroke="#111"
-              strokeWidth="9"
+              strokeWidth="8"
               fill="none"
               strokeLinecap="round"
             />
             {/* White tail tip */}
             <path
-              d="M282,148 C280,140 276,134 272,130"
+              d="M275,155 C274,148 272,142 268,136"
               stroke="white"
-              strokeWidth="9"
+              strokeWidth="8"
               fill="none"
               strokeLinecap="round"
             />
           </g>
 
-          {/* === HEAD === Organic cat head */}
+          {/* === HEAD === Natural rounded cat head */}
           <g className={isAnimating ? "head" : isWalking ? "walk-head" : ""} style={headStyle}>
-            {/* Head shape - slightly wider, rounder */}
+            {/* Main head shape */}
             <path
-              d="M165,115 C160,95 165,75 180,68
-                 C190,63 200,62 210,63
-                 C220,65 230,70 235,80
-                 C240,90 242,105 238,118
-                 C235,128 228,135 218,138
-                 C208,141 195,142 185,140
-                 C175,138 168,128 165,115 Z"
+              d="M168,108
+                 C163,92 167,72 180,65
+                 C188,61 196,59 204,59
+                 C212,60 222,65 228,72
+                 C236,82 239,98 236,112
+                 C234,122 228,130 220,135
+                 C212,139 204,141 196,140
+                 C186,139 176,132 170,122
+                 C168,118 167,113 168,108 Z"
               fill="#111"
             />
-            {/* Cheek fluff left */}
+            {/* Cheek fluff - left */}
             <path
-              d="M162,110 C158,118 160,128 168,132
-                 C172,134 178,135 180,130
-                 C175,125 165,120 162,110 Z"
+              d="M164,112 C160,120 162,130 170,134
+                 C174,136 178,134 176,128
+                 C174,124 167,118 164,112 Z"
               fill="#111"
             />
-            {/* Cheek fluff right */}
+            {/* Cheek fluff - right */}
             <path
-              d="M240,110 C244,118 242,128 234,132
-                 C230,134 224,135 222,130
-                 C227,125 237,120 240,110 Z"
+              d="M238,112 C242,120 240,130 232,134
+                 C228,136 224,134 226,128
+                 C228,124 235,118 238,112 Z"
               fill="#111"
             />
 
-            {/* Left ear - triangular, organic */}
+            {/* Left ear - graceful pointed */}
             <path
-              d="M168,90 C162,70 155,48 158,38
-                 C160,32 165,30 170,35
-                 C176,42 180,60 182,78"
+              d="M172,88 
+                 C168,72 162,50 160,38
+                 C159,30 162,26 167,30
+                 C174,36 180,55 183,75"
               fill="#111"
             />
             {/* Left ear white tip */}
             <path
-              d="M160,45 C158,38 160,33 163,32
-                 C166,31 169,34 170,38
-                 C168,40 163,42 160,45 Z"
+              d="M161,40 C160,33 162,28 165,28
+                 C168,28 170,32 169,37 L161,40 Z"
               fill="white"
             />
-            {/* Left ear inner */}
+            {/* Left ear inner pink/dark */}
             <path
-              d="M164,65 C162,55 160,45 163,40
-                 C165,37 168,38 170,42
-                 C172,48 173,58 174,68"
+              d="M167,62 C165,52 163,42 165,36
+                 C167,33 170,35 171,40
+                 C173,48 174,58 175,68"
               fill="#1a1a1a"
             />
 
             {/* Right ear */}
             <path
-              d="M232,78 C234,60 238,42 240,35
-                 C242,30 247,32 249,38
-                 C251,48 248,70 242,90"
+              d="M225,75
+                 C228,55 234,36 240,30
+                 C245,26 248,30 247,38
+                 C246,50 240,72 236,88"
               fill="#111"
             />
             {/* Right ear white tip */}
             <path
-              d="M242,38 C241,33 243,31 246,32
-                 C248,33 250,37 249,42
-                 C247,40 244,38 242,38 Z"
+              d="M239,37 C238,32 240,28 243,28
+                 C246,28 248,33 247,40 L239,37 Z"
               fill="white"
             />
             {/* Right ear inner */}
             <path
-              d="M236,68 C237,58 238,48 240,42
-                 C241,38 244,37 245,40
-                 C247,45 246,55 245,65"
+              d="M233,68 C234,58 235,48 237,40
+                 C238,35 241,33 242,36
+                 C243,42 242,52 240,62"
               fill="#1a1a1a"
             />
 
-            {/* === EYES === */}
+            {/* === EYES === Almond-shaped cat eyes */}
             <g className={isAnimating ? "eyes" : ""} style={eyesStyle}>
-              {/* Left eye - almond shaped */}
+              {/* Left eye outline */}
               <path
-                d="M182,102 C185,96 193,96 196,102
-                   C193,108 185,108 182,102 Z"
+                d="M180,100 C184,93 194,93 198,100 C194,107 184,107 180,100 Z"
                 fill="#22c55e"
               />
-              {/* Left pupil */}
-              <ellipse cx="189" cy="102" rx="2.5" ry="5" fill="#111" />
+              {/* Left pupil - vertical slit */}
+              <ellipse cx="189" cy="100" rx="2" ry="5.5" fill="#111" />
               {/* Left eye shine */}
-              <circle cx="191" cy="100" r="1.5" fill="white" opacity="0.8" />
-              <circle cx="187" cy="104" r="0.8" fill="white" opacity="0.5" />
+              <circle cx="192" cy="98" r="1.8" fill="white" opacity="0.85" />
+              <circle cx="187" cy="103" r="0.7" fill="white" opacity="0.4" />
 
               {/* Right eye */}
               <path
-                d="M206,102 C209,96 217,96 220,102
-                   C217,108 209,108 206,102 Z"
+                d="M206,100 C210,93 220,93 224,100 C220,107 210,107 206,100 Z"
                 fill="#22c55e"
               />
-              {/* Right pupil */}
-              <ellipse cx="213" cy="102" rx="2.5" ry="5" fill="#111" />
-              {/* Right eye shine */}
-              <circle cx="215" cy="100" r="1.5" fill="white" opacity="0.8" />
-              <circle cx="211" cy="104" r="0.8" fill="white" opacity="0.5" />
+              <ellipse cx="215" cy="100" rx="2" ry="5.5" fill="#111" />
+              <circle cx="218" cy="98" r="1.8" fill="white" opacity="0.85" />
+              <circle cx="213" cy="103" r="0.7" fill="white" opacity="0.4" />
             </g>
 
-            {/* Nose - small triangle */}
-            <path
-              d="M198,118 L195,122 L201,122 Z"
-              fill="#444"
-            />
-            {/* Mouth lines */}
-            <path d="M198,122 C198,125 196,127 193,128" stroke="#333" strokeWidth="0.8" fill="none" />
-            <path d="M198,122 C198,125 200,127 203,128" stroke="#333" strokeWidth="0.8" fill="none" />
+            {/* Nose */}
+            <path d="M200,116 L197,120 L203,120 Z" fill="#555" />
+            {/* Mouth */}
+            <path d="M200,120 C200,123 198,126 195,127" stroke="#333" strokeWidth="0.7" fill="none" />
+            <path d="M200,120 C200,123 202,126 205,127" stroke="#333" strokeWidth="0.7" fill="none" />
 
-            {/* Whiskers - left */}
-            <line x1="170" y1="112" x2="138" y2="106" stroke="#555" strokeWidth="0.8" opacity="0.7" />
-            <line x1="170" y1="116" x2="135" y2="116" stroke="#555" strokeWidth="0.8" opacity="0.7" />
-            <line x1="170" y1="120" x2="138" y2="126" stroke="#555" strokeWidth="0.8" opacity="0.7" />
-            {/* Whiskers - right */}
-            <line x1="232" y1="112" x2="264" y2="106" stroke="#555" strokeWidth="0.8" opacity="0.7" />
-            <line x1="232" y1="116" x2="267" y2="116" stroke="#555" strokeWidth="0.8" opacity="0.7" />
-            <line x1="232" y1="120" x2="264" y2="126" stroke="#555" strokeWidth="0.8" opacity="0.7" />
+            {/* Whiskers */}
+            <line x1="172" y1="110" x2="138" y2="104" stroke="#555" strokeWidth="0.7" opacity="0.6" />
+            <line x1="172" y1="114" x2="135" y2="114" stroke="#555" strokeWidth="0.7" opacity="0.6" />
+            <line x1="172" y1="118" x2="138" y2="124" stroke="#555" strokeWidth="0.7" opacity="0.6" />
+            <line x1="230" y1="110" x2="264" y2="104" stroke="#555" strokeWidth="0.7" opacity="0.6" />
+            <line x1="230" y1="114" x2="267" y2="114" stroke="#555" strokeWidth="0.7" opacity="0.6" />
+            <line x1="230" y1="118" x2="264" y2="124" stroke="#555" strokeWidth="0.7" opacity="0.6" />
           </g>
         </g>
       </svg>
