@@ -74,9 +74,9 @@ const CurlingCat = () => {
     : undefined;
 
   const eyesStyle: React.CSSProperties | undefined = isCurled
-    ? { transform: "scaleY(0.15)", transformOrigin: "center center", transition: "transform 0.8s ease" }
+    ? { transform: "scaleY(0.15)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" }
     : (isStanding || isWalking)
-    ? { transform: "scaleY(1)", transformOrigin: "center center", transition: "transform 0.8s ease" }
+    ? { transform: "scaleY(1)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" }
     : undefined;
 
   return (
@@ -98,7 +98,7 @@ const CurlingCat = () => {
             .a-fr { animation: frontRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 194px 198px; }
             .a-bl { animation: backLeftLegCurl 3s ease-in-out infinite alternate; transform-origin: 303px 198px; }
             .a-br { animation: backRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 332px 195px; }
-            .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: center center; }
+            .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: 145px 117px; }
 
             @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(20px,10px) rotate(30deg); } }
             @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
