@@ -1,0 +1,262 @@
+import { useState } from "react";
+import CatBody, { CatLegs, CatFrontRightLeg, CatBackLeftLeg, CatBackRightLeg, CatTail, CatHead, CatEyes, CatFace } from "./animals/CatPaths";
+import DogBody, { DogFrontLeftLeg, DogFrontRightLeg, DogBackLeftLeg, DogBackRightLeg, DogTail, DogHead, DogEyes, DogFace } from "./animals/DogPaths";
+import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeftLeg, RaccoonBackRightLeg, RaccoonTail, RaccoonHead, RaccoonEyes, RaccoonFace } from "./animals/RaccoonPaths";
+import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch } from "./animals/ParrotPaths";
+
+export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
+type Pose = "animating" | "standing" | "curled" | "walking";
+
+const animalParts: Record<AnimalType, {
+  Body: React.FC;
+  FrontLeftLeg: React.FC;
+  FrontRightLeg: React.FC;
+  BackLeftLeg: React.FC;
+  BackRightLeg: React.FC;
+  Tail: React.FC;
+  Head: React.FC;
+  Eyes: React.FC;
+  Face: React.FC;
+  Extra?: React.FC;
+}> = {
+  cat: { Body: CatBody, FrontLeftLeg: CatLegs, FrontRightLeg: CatFrontRightLeg, BackLeftLeg: CatBackLeftLeg, BackRightLeg: CatBackRightLeg, Tail: CatTail, Head: CatHead, Eyes: CatEyes, Face: CatFace },
+  dog: { Body: DogBody, FrontLeftLeg: DogFrontLeftLeg, FrontRightLeg: DogFrontRightLeg, BackLeftLeg: DogBackLeftLeg, BackRightLeg: DogBackRightLeg, Tail: DogTail, Head: DogHead, Eyes: DogEyes, Face: DogFace },
+  raccoon: { Body: RaccoonBody, FrontLeftLeg: RaccoonFrontLeftLeg, FrontRightLeg: RaccoonFrontRightLeg, BackLeftLeg: RaccoonBackLeftLeg, BackRightLeg: RaccoonBackRightLeg, Tail: RaccoonTail, Head: RaccoonHead, Eyes: RaccoonEyes, Face: RaccoonFace },
+  parrot: { Body: ParrotBody, FrontLeftLeg: ParrotFrontLeftLeg, FrontRightLeg: ParrotFrontRightLeg, BackLeftLeg: ParrotBackLeftLeg, BackRightLeg: ParrotBackRightLeg, Tail: ParrotTail, Head: ParrotHead, Eyes: ParrotEyes, Face: ParrotFace, Extra: ParrotPerch },
+};
+
+const animalColors: Record<AnimalType, Record<string, string>> = {
+  cat: {
+    "--animal-fur": "0 0% 7%",
+    "--animal-fur-shadow": "0 0% 5%",
+    "--animal-fur-highlight": "0 0% 10%",
+    "--animal-eye": "142 71% 45%",
+    "--animal-pupil": "0 0% 7%",
+    "--animal-nose": "0 0% 33%",
+    "--animal-whisker": "0 0% 33%",
+    "--animal-ear-inner": "0 0% 10%",
+    "--animal-white-tip": "0 0% 100%",
+  },
+  dog: {
+    "--animal-fur": "35 55% 45%",
+    "--animal-fur-shadow": "30 50% 35%",
+    "--animal-fur-highlight": "38 60% 60%",
+    "--animal-eye": "25 60% 30%",
+    "--animal-pupil": "0 0% 7%",
+    "--animal-nose": "0 0% 12%",
+    "--animal-whisker": "0 0% 25%",
+    "--animal-ear-inner": "30 40% 35%",
+    "--animal-white-tip": "38 60% 80%",
+  },
+  raccoon: {
+    "--animal-fur": "0 0% 40%",
+    "--animal-fur-shadow": "0 0% 28%",
+    "--animal-fur-highlight": "0 0% 70%",
+    "--animal-eye": "0 0% 15%",
+    "--animal-pupil": "0 0% 5%",
+    "--animal-nose": "0 0% 10%",
+    "--animal-whisker": "0 0% 30%",
+    "--animal-ear-inner": "0 0% 25%",
+    "--animal-white-tip": "0 0% 95%",
+  },
+  parrot: {
+    "--animal-fur": "145 60% 38%",
+    "--animal-fur-shadow": "145 50% 28%",
+    "--animal-fur-highlight": "55 75% 55%",
+    "--animal-eye": "45 80% 50%",
+    "--animal-pupil": "0 0% 5%",
+    "--animal-nose": "0 0% 18%",
+    "--animal-whisker": "0 0% 30%",
+    "--animal-ear-inner": "145 45% 30%",
+    "--animal-white-tip": "0 0% 95%",
+  },
+};
+
+const animalLabels: Record<AnimalType, string> = {
+  cat: "🐱 Cat",
+  dog: "🐕 Dog",
+  raccoon: "🦝 Raccoon",
+  parrot: "🦜 Parrot",
+};
+
+const AnimalSVG = () => {
+  const [animal, setAnimal] = useState<AnimalType>("cat");
+  const [pose, setPose] = useState<Pose>("animating");
+
+  const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot"];
+  const poses: Pose[] = ["animating", "standing", "curled", "walking"];
+  const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
+
+  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", walking: "Walking" };
+
+  const isAnimating = pose === "animating";
+  const isCurled = pose === "curled";
+  const isWalking = pose === "walking";
+  const isStanding = pose === "standing";
+
+  const parts = animalParts[animal];
+  const colors = animalColors[animal];
+
+  const legMotionTransition = "transform 0.95s cubic-bezier(0.22, 1, 0.36, 1)";
+
+  const headStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(20px, 10px) rotate(30deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" }
+    : (isStanding || isWalking) ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" } : undefined;
+
+  const bodyStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "rotate(15deg)", transformOrigin: "250px 200px", transition: "transform 1s ease" }
+    : (isStanding || isWalking) ? { transform: "rotate(0deg)", transformOrigin: "250px 200px", transition: "transform 1s ease" } : undefined;
+
+  const tailStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "rotate(40deg) translate(-20px, 10px)", transformOrigin: "340px 180px", transition: "transform 1s ease" }
+    : (isStanding || isWalking) ? { transform: "rotate(0deg) translate(0,0)", transformOrigin: "340px 180px", transition: "transform 1s ease" } : undefined;
+
+  const legsStyle: React.CSSProperties | undefined = isCurled
+    ? { opacity: 0, transition: "opacity 0.35s ease 0.45s" }
+    : (isStanding || isWalking) ? { opacity: 1, transition: "opacity 0.25s ease" } : undefined;
+
+  const frontLeftLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(8px, -16px) rotate(-96deg) scaleY(0.38)", transformOrigin: "166px 198px", transition: legMotionTransition }
+    : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "166px 198px", transition: legMotionTransition } : undefined;
+
+  const frontRightLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(6px, -14px) rotate(-90deg) scaleY(0.38)", transformOrigin: "194px 198px", transition: legMotionTransition }
+    : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "194px 198px", transition: legMotionTransition } : undefined;
+
+  const backLeftLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(-8px, -18px) rotate(104deg) scaleY(0.38)", transformOrigin: "303px 198px", transition: legMotionTransition }
+    : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "303px 198px", transition: legMotionTransition } : undefined;
+
+  const backRightLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(-7px, -16px) rotate(100deg) scaleY(0.38)", transformOrigin: "332px 195px", transition: legMotionTransition }
+    : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "332px 195px", transition: legMotionTransition } : undefined;
+
+  const eyesStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "scaleY(0.15)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" }
+    : (isStanding || isWalking) ? { transform: "scaleY(1)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" } : undefined;
+
+  // Build inline CSS vars from the animal color map
+  const svgStyle: React.CSSProperties = Object.entries(colors).reduce(
+    (acc, [key, val]) => ({ ...acc, [key]: val }),
+    { overflow: "visible" } as Record<string, string>
+  );
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      {/* Animal selector */}
+      <div className="flex gap-2">
+        {animals.map((a) => (
+          <button
+            key={a}
+            onClick={() => setAnimal(a)}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              animal === a
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary text-secondary-foreground hover:opacity-80"
+            }`}
+          >
+            {animalLabels[a]}
+          </button>
+        ))}
+      </div>
+
+      <svg
+        viewBox="-10 -10 500 340"
+        width="360"
+        height="240"
+        xmlns="http://www.w3.org/2000/svg"
+        style={svgStyle}
+      >
+        {isAnimating && (
+          <style>{`
+            .a-head { animation: headTuck 3s ease-in-out infinite alternate; transform-origin: 140px 140px; }
+            .a-body { animation: bodyCompress 3s ease-in-out infinite alternate; transform-origin: 250px 200px; }
+            .a-tail { animation: tailCurl 3s ease-in-out infinite alternate; transform-origin: 340px 180px; }
+            .a-legs { animation: legsFade 3s ease-in-out infinite alternate; }
+            .a-fl { animation: frontLeftLegCurl 3s ease-in-out infinite alternate; transform-origin: 166px 198px; }
+            .a-fr { animation: frontRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 194px 198px; }
+            .a-bl { animation: backLeftLegCurl 3s ease-in-out infinite alternate; transform-origin: 303px 198px; }
+            .a-br { animation: backRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 332px 195px; }
+            .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: 145px 117px; }
+            @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(20px,10px) rotate(30deg); } }
+            @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
+            @keyframes tailCurl { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(40deg) translate(-20px,10px); } }
+            @keyframes legsFade { 0%, 78% { opacity: 1; } 100% { opacity: 0; } }
+            @keyframes frontLeftLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(2px,-5px) rotate(-34deg) scaleY(0.88); } 100% { transform: translate(8px,-16px) rotate(-96deg) scaleY(0.38); } }
+            @keyframes frontRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(2px,-4px) rotate(-30deg) scaleY(0.88); } 100% { transform: translate(6px,-14px) rotate(-90deg) scaleY(0.38); } }
+            @keyframes backLeftLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-3px,-6px) rotate(36deg) scaleY(0.88); } 100% { transform: translate(-8px,-18px) rotate(104deg) scaleY(0.38); } }
+            @keyframes backRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-2px,-5px) rotate(34deg) scaleY(0.88); } 100% { transform: translate(-7px,-16px) rotate(100deg) scaleY(0.38); } }
+            @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
+          `}</style>
+        )}
+
+        {isWalking && (
+          <style>{`
+            .w-bounce { animation: wBounce 0.8s ease-in-out infinite; }
+            .w-fl { animation: wStepA 0.8s ease-in-out infinite; transform-origin: 162px 198px; }
+            .w-fr { animation: wStepB 0.8s ease-in-out infinite; transform-origin: 190px 198px; }
+            .w-bl { animation: wStepB 0.8s ease-in-out infinite; transform-origin: 300px 195px; }
+            .w-br { animation: wStepA 0.8s ease-in-out infinite; transform-origin: 325px 192px; }
+            .w-tail { animation: wTailSway 0.8s ease-in-out infinite alternate; transform-origin: 340px 180px; }
+            .w-head { animation: wHeadBob 0.8s ease-in-out infinite; transform-origin: 140px 160px; }
+            @keyframes wBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+            @keyframes wStepA { 0% { transform: rotate(-10deg); } 25% { transform: rotate(10deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-10deg); } 100% { transform: rotate(-10deg); } }
+            @keyframes wStepB { 0% { transform: rotate(10deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } 100% { transform: rotate(10deg); } }
+            @keyframes wTailSway { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
+            @keyframes wHeadBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+          `}</style>
+        )}
+
+        {/* Extra elements like perch */}
+        {parts.Extra && <parts.Extra />}
+
+        <g className={isAnimating ? "a-body" : isWalking ? "w-bounce" : ""} style={bodyStyle}>
+          <parts.Body />
+
+          {/* Front legs */}
+          <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
+            <g className={`${isAnimating ? "a-fl" : ""} ${isWalking ? "w-fl" : ""}`.trim()} style={frontLeftLegStyle}>
+              <parts.FrontLeftLeg />
+            </g>
+            <g className={`${isAnimating ? "a-fr" : ""} ${isWalking ? "w-fr" : ""}`.trim()} style={frontRightLegStyle}>
+              <parts.FrontRightLeg />
+            </g>
+          </g>
+
+          {/* Back legs */}
+          <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
+            <g className={`${isAnimating ? "a-bl" : ""} ${isWalking ? "w-bl" : ""}`.trim()} style={backLeftLegStyle}>
+              <parts.BackLeftLeg />
+            </g>
+            <g className={`${isAnimating ? "a-br" : ""} ${isWalking ? "w-br" : ""}`.trim()} style={backRightLegStyle}>
+              <parts.BackRightLeg />
+            </g>
+          </g>
+
+          {/* Tail */}
+          <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+            <parts.Tail />
+          </g>
+
+          {/* Head */}
+          <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+            <parts.Head />
+            <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
+              <parts.Eyes />
+            </g>
+            <parts.Face />
+          </g>
+        </g>
+      </svg>
+
+      <button
+        onClick={nextPose}
+        className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-medium hover:opacity-80 transition-opacity"
+      >
+        {poseLabels[pose]}
+      </button>
+    </div>
+  );
+};
+
+export default AnimalSVG;
