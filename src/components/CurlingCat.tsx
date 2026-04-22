@@ -73,7 +73,7 @@ const CurlingCat = () => {
             @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(50px,20px) rotate(45deg); } }
             @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
             @keyframes tailCurl { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(40deg) translate(-20px,10px); } }
-            @keyframes legsFold { 0% { opacity:1; transform:scaleY(1); } 50% { opacity:1; transform:scaleY(0.5); } 100% { opacity:0; transform:scaleY(0); } }
+            @keyframes legsFold { 0% { opacity:1; transform:translateY(0) scaleY(1) rotate(0deg); } 40% { opacity:1; transform:translateY(15px) scaleY(0.6) rotate(5deg); } 70% { opacity:0.6; transform:translateY(30px) scaleY(0.3) rotate(10deg); } 100% { opacity:0; transform:translateY(40px) scaleY(0.1) rotate(15deg); } }
             @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
           `}</style>
         )}
