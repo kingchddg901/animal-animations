@@ -42,9 +42,35 @@ const CurlingCat = () => {
     : undefined;
 
   const legsStyle: React.CSSProperties | undefined = isCurled
-    ? { opacity: 0, transform: "scaleY(0)", transformOrigin: "center bottom", transition: "opacity 0.6s ease, transform 1s ease" }
+    ? { opacity: 0, transition: "opacity 0.35s ease 0.45s" }
     : (isStanding || isWalking)
-    ? { opacity: 1, transform: "scaleY(1)", transformOrigin: "center bottom", transition: "opacity 0.3s ease, transform 0.6s ease" }
+    ? { opacity: 1, transition: "opacity 0.25s ease" }
+    : undefined;
+
+  const legMotionTransition = "transform 0.95s cubic-bezier(0.22, 1, 0.36, 1)";
+
+  const frontLeftLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(8px, -16px) rotate(-96deg) scaleY(0.38)", transformOrigin: "166px 198px", transition: legMotionTransition }
+    : isStanding
+    ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "166px 198px", transition: legMotionTransition }
+    : undefined;
+
+  const frontRightLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(6px, -14px) rotate(-90deg) scaleY(0.38)", transformOrigin: "194px 198px", transition: legMotionTransition }
+    : isStanding
+    ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "194px 198px", transition: legMotionTransition }
+    : undefined;
+
+  const backLeftLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(-8px, -18px) rotate(104deg) scaleY(0.38)", transformOrigin: "303px 198px", transition: legMotionTransition }
+    : isStanding
+    ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "303px 198px", transition: legMotionTransition }
+    : undefined;
+
+  const backRightLegStyle: React.CSSProperties | undefined = isCurled
+    ? { transform: "translate(-7px, -16px) rotate(100deg) scaleY(0.38)", transformOrigin: "332px 195px", transition: legMotionTransition }
+    : isStanding
+    ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "332px 195px", transition: legMotionTransition }
     : undefined;
 
   const eyesStyle: React.CSSProperties | undefined = isCurled
@@ -67,13 +93,21 @@ const CurlingCat = () => {
             .a-head { animation: headTuck 3s ease-in-out infinite alternate; transform-origin: 120px 140px; }
             .a-body { animation: bodyCompress 3s ease-in-out infinite alternate; transform-origin: 250px 200px; }
             .a-tail { animation: tailCurl 3s ease-in-out infinite alternate; transform-origin: 340px 180px; }
-            .a-legs { animation: legsFold 3s ease-in-out infinite alternate; transform-origin: center bottom; }
+            .a-legs { animation: legsFade 3s ease-in-out infinite alternate; }
+            .a-fl { animation: frontLeftLegCurl 3s ease-in-out infinite alternate; transform-origin: 166px 198px; }
+            .a-fr { animation: frontRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 194px 198px; }
+            .a-bl { animation: backLeftLegCurl 3s ease-in-out infinite alternate; transform-origin: 303px 198px; }
+            .a-br { animation: backRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 332px 195px; }
             .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: center center; }
 
             @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(50px,20px) rotate(45deg); } }
             @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
             @keyframes tailCurl { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(40deg) translate(-20px,10px); } }
-            @keyframes legsFold { 0% { opacity:1; transform:scaleY(1); } 50% { opacity:0.5; transform:scaleY(0.3); } 100% { opacity:0; transform:scaleY(0); } }
+            @keyframes legsFade { 0%, 78% { opacity: 1; } 100% { opacity: 0; } }
+            @keyframes frontLeftLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(2px,-5px) rotate(-34deg) scaleY(0.88); } 100% { transform: translate(8px,-16px) rotate(-96deg) scaleY(0.38); } }
+            @keyframes frontRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(2px,-4px) rotate(-30deg) scaleY(0.88); } 100% { transform: translate(6px,-14px) rotate(-90deg) scaleY(0.38); } }
+            @keyframes backLeftLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-3px,-6px) rotate(36deg) scaleY(0.88); } 100% { transform: translate(-8px,-18px) rotate(104deg) scaleY(0.38); } }
+            @keyframes backRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-2px,-5px) rotate(34deg) scaleY(0.88); } 100% { transform: translate(-7px,-16px) rotate(100deg) scaleY(0.38); } }
             @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
           `}</style>
         )}
@@ -130,7 +164,7 @@ const CurlingCat = () => {
           {/* === FRONT LEGS === Under the front of the body */}
           <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
             {/* Left front leg */}
-            <g className={isWalking ? "w-fl" : ""}>
+            <g className={`${isAnimating ? "a-fl" : ""} ${isWalking ? "w-fl" : ""}`.trim()} style={frontLeftLegStyle}>
               <path
                 d="M162,198
                    C160,210 158,228 157,245
@@ -144,7 +178,7 @@ const CurlingCat = () => {
               <ellipse cx="167" cy="277" rx="12" ry="5" fill="hsl(var(--cat-fur))" />
             </g>
             {/* Right front leg (slightly behind) */}
-            <g className={isWalking ? "w-fr" : ""}>
+            <g className={`${isAnimating ? "a-fr" : ""} ${isWalking ? "w-fr" : ""}`.trim()} style={frontRightLegStyle}>
               <path
                 d="M190,198
                    C188,210 186,228 185,245
@@ -162,7 +196,7 @@ const CurlingCat = () => {
           {/* === BACK LEGS === Under the rear of the body, with haunch */}
           <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
             {/* Left back leg with thigh/haunch */}
-            <g className={isWalking ? "w-bl" : ""}>
+            <g className={`${isAnimating ? "a-bl" : ""} ${isWalking ? "w-bl" : ""}`.trim()} style={backLeftLegStyle}>
               <path
                 d="M300,195
                    C295,205 290,218 292,232
@@ -176,7 +210,7 @@ const CurlingCat = () => {
               <ellipse cx="307" cy="277" rx="12" ry="5" fill="hsl(var(--cat-fur))" />
             </g>
             {/* Right back leg */}
-            <g className={isWalking ? "w-br" : ""}>
+            <g className={`${isAnimating ? "a-br" : ""} ${isWalking ? "w-br" : ""}`.trim()} style={backRightLegStyle}>
               <path
                 d="M325,192
                    C322,202 320,215 322,230
