@@ -24,9 +24,9 @@ const CurlingCat = () => {
 
   // Curling transforms: head tucks, body compresses, tail wraps, legs fold
   const headStyle: React.CSSProperties | undefined = isCurled
-    ? { transform: "translate(50px, 20px) rotate(45deg)", transformOrigin: "120px 140px", transition: "transform 1s ease" }
+    ? { transform: "translate(20px, 10px) rotate(30deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" }
     : (isStanding || isWalking)
-    ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "120px 140px", transition: "transform 1s ease" }
+    ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" }
     : undefined;
 
   const bodyStyle: React.CSSProperties | undefined = isCurled
@@ -90,7 +90,7 @@ const CurlingCat = () => {
       >
         {isAnimating && (
           <style>{`
-            .a-head { animation: headTuck 3s ease-in-out infinite alternate; transform-origin: 120px 140px; }
+            .a-head { animation: headTuck 3s ease-in-out infinite alternate; transform-origin: 140px 140px; }
             .a-body { animation: bodyCompress 3s ease-in-out infinite alternate; transform-origin: 250px 200px; }
             .a-tail { animation: tailCurl 3s ease-in-out infinite alternate; transform-origin: 340px 180px; }
             .a-legs { animation: legsFade 3s ease-in-out infinite alternate; }
@@ -100,7 +100,7 @@ const CurlingCat = () => {
             .a-br { animation: backRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 332px 195px; }
             .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: center center; }
 
-            @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(50px,20px) rotate(45deg); } }
+            @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(20px,10px) rotate(30deg); } }
             @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
             @keyframes tailCurl { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(40deg) translate(-20px,10px); } }
             @keyframes legsFade { 0%, 78% { opacity: 1; } 100% { opacity: 0; } }
@@ -155,9 +155,9 @@ const CurlingCat = () => {
 
           {/* Neck - connects body to head */}
           <path
-            d="M150,155 C145,148 140,142 135,140
-               C130,138 128,142 130,148
-               C132,155 140,162 150,165"
+            d="M150,155 C148,152 146,150 144,149
+               C141,148 140,150 141,153
+               C142,156 146,160 150,162"
             fill="hsl(var(--cat-fur))"
           />
 
@@ -252,68 +252,68 @@ const CurlingCat = () => {
           <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
             {/* Main head */}
             <path
-              d="M100,130
-                 C95,115 100,95 112,88
-                 C120,83 130,80 140,82
-                 C150,84 158,90 162,100
-                 C166,110 166,125 160,135
-                 C155,143 148,148 138,150
-                 C128,152 118,150 110,145
-                 C105,142 101,137 100,130 Z"
+              d="M112,135
+                 C107,120 112,100 124,93
+                 C132,88 142,85 152,87
+                 C162,89 170,95 174,105
+                 C178,115 178,130 172,140
+                 C167,148 160,153 150,155
+                 C140,157 130,155 122,150
+                 C117,147 113,142 112,135 Z"
               fill="hsl(var(--cat-fur))"
             />
             {/* Cheek fluff left */}
             <path
-              d="M98,132 C94,140 96,148 104,150
-                 C108,151 110,148 108,143
-                 C106,138 100,135 98,132 Z"
+              d="M110,137 C106,145 108,153 116,155
+                 C120,156 122,153 120,148
+                 C118,143 112,140 110,137 Z"
               fill="hsl(var(--cat-fur))"
             />
             {/* Cheek fluff right */}
             <path
-              d="M158,130 C162,136 162,144 156,148
-                 C152,150 148,148 150,143
-                 C152,138 156,134 158,130 Z"
+              d="M170,135 C174,141 174,149 168,153
+                 C164,155 160,153 162,148
+                 C164,143 168,139 170,135 Z"
               fill="hsl(var(--cat-fur))"
             />
 
             {/* Left ear */}
             <path
-              d="M106,100
-                 C102,82 96,60 95,48
-                 C94,40 97,36 102,40
-                 C108,46 114,64 116,82"
+              d="M118,105
+                 C114,87 108,65 107,53
+                 C106,45 109,41 114,45
+                 C120,51 126,69 128,87"
               fill="hsl(var(--cat-fur))"
             />
             <path
-              d="M96,50 C95,42 97,38 100,38
-                 C103,38 105,42 104,48 L96,50 Z"
+              d="M108,55 C107,47 109,43 112,43
+                 C115,43 117,47 116,53 L108,55 Z"
               fill="hsl(var(--cat-white-tip))"
             />
             <path
-              d="M102,70 C100,60 98,50 100,44
-                 C102,40 105,42 106,47
-                 C108,54 108,64 108,74"
+              d="M114,75 C112,65 110,55 112,49
+                 C114,45 117,47 118,52
+                 C120,59 120,69 120,79"
               fill="hsl(var(--cat-ear-inner))"
             />
 
             {/* Right ear */}
             <path
-              d="M148,82
-                 C150,64 156,46 162,40
-                 C167,36 170,40 169,48
-                 C168,60 162,82 158,100"
+              d="M160,87
+                 C162,69 168,51 174,45
+                 C179,41 182,45 181,53
+                 C180,65 174,87 170,105"
               fill="hsl(var(--cat-fur))"
             />
             <path
-              d="M161,48 C160,42 162,38 165,38
-                 C168,38 170,42 169,50 L161,48 Z"
+              d="M173,53 C172,47 174,43 177,43
+                 C180,43 182,47 181,55 L173,53 Z"
               fill="hsl(var(--cat-white-tip))"
             />
             <path
-              d="M154,74 C156,64 158,54 160,47
-                 C161,42 164,40 165,44
-                 C166,50 164,60 162,70"
+              d="M166,79 C168,69 170,59 172,52
+                 C173,47 176,45 177,49
+                 C178,55 176,65 174,75"
               fill="hsl(var(--cat-ear-inner))"
             />
 
@@ -321,36 +321,36 @@ const CurlingCat = () => {
             <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
               {/* Left eye */}
               <path
-                d="M112,112 C116,105 126,105 130,112 C126,119 116,119 112,112 Z"
+                d="M124,117 C128,110 138,110 142,117 C138,124 128,124 124,117 Z"
                 fill="hsl(var(--cat-eye))"
               />
-              <ellipse cx="121" cy="112" rx="2" ry="5.5" fill="hsl(var(--cat-pupil))" />
-              <circle cx="124" cy="110" r="1.8" fill="hsl(var(--cat-white-tip))" opacity="0.85" />
-              <circle cx="119" cy="114" r="0.7" fill="hsl(var(--cat-white-tip))" opacity="0.4" />
+              <ellipse cx="133" cy="117" rx="2" ry="5.5" fill="hsl(var(--cat-pupil))" />
+              <circle cx="136" cy="115" r="1.8" fill="hsl(var(--cat-white-tip))" opacity="0.85" />
+              <circle cx="131" cy="119" r="0.7" fill="hsl(var(--cat-white-tip))" opacity="0.4" />
 
               {/* Right eye */}
               <path
-                d="M136,112 C140,105 150,105 154,112 C150,119 140,119 136,112 Z"
+                d="M148,117 C152,110 162,110 166,117 C162,124 152,124 148,117 Z"
                 fill="hsl(var(--cat-eye))"
               />
-              <ellipse cx="145" cy="112" rx="2" ry="5.5" fill="hsl(var(--cat-pupil))" />
-              <circle cx="148" cy="110" r="1.8" fill="hsl(var(--cat-white-tip))" opacity="0.85" />
-              <circle cx="143" cy="114" r="0.7" fill="hsl(var(--cat-white-tip))" opacity="0.4" />
+              <ellipse cx="157" cy="117" rx="2" ry="5.5" fill="hsl(var(--cat-pupil))" />
+              <circle cx="160" cy="115" r="1.8" fill="hsl(var(--cat-white-tip))" opacity="0.85" />
+              <circle cx="155" cy="119" r="0.7" fill="hsl(var(--cat-white-tip))" opacity="0.4" />
             </g>
 
             {/* Nose */}
-            <path d="M132,126 L129,130 L135,130 Z" fill="hsl(var(--cat-nose))" />
+            <path d="M144,131 L141,135 L147,135 Z" fill="hsl(var(--cat-nose))" />
             {/* Mouth */}
-            <path d="M132,130 C132,133 130,135 127,136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" fill="none" />
-            <path d="M132,130 C132,133 134,135 137,136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" fill="none" />
+            <path d="M144,135 C144,138 142,140 139,141" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" fill="none" />
+            <path d="M144,135 C144,138 146,140 149,141" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" fill="none" />
 
             {/* Whiskers */}
-            <line x1="105" y1="122" x2="72" y2="116" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
-            <line x1="105" y1="126" x2="68" y2="126" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
-            <line x1="105" y1="130" x2="72" y2="136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
-            <line x1="158" y1="122" x2="188" y2="116" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
-            <line x1="158" y1="126" x2="192" y2="126" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
-            <line x1="158" y1="130" x2="188" y2="136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="117" y1="127" x2="84" y2="121" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="117" y1="131" x2="80" y2="131" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="117" y1="135" x2="84" y2="141" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="170" y1="127" x2="200" y2="121" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="170" y1="131" x2="204" y2="131" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="170" y1="135" x2="200" y2="141" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
           </g>
         </g>
       </svg>
