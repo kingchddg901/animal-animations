@@ -240,7 +240,7 @@ const CurlingCat = () => {
             />
             {/* White tail tip */}
             <path
-              d="M366,98 C365,90 363,82 362,76"
+              d="M372,75 C368,70 364,72 363,78"
               stroke="hsl(var(--cat-white-tip))"
               strokeWidth="8"
               fill="none"
