@@ -42,9 +42,9 @@ const CurlingCat = () => {
     : undefined;
 
   const legsStyle: React.CSSProperties | undefined = isCurled
-    ? { opacity: 0, transform: "translateY(-45px) scaleY(0)", transformOrigin: "center top", transition: "all 1s ease" }
+    ? { opacity: 0, transform: "scaleY(0)", transformOrigin: "center bottom", transition: "opacity 0.6s ease, transform 1s ease" }
     : (isStanding || isWalking)
-    ? { opacity: 1, transform: "translateY(0) scaleY(1)", transformOrigin: "center top", transition: "all 0.6s ease" }
+    ? { opacity: 1, transform: "scaleY(1)", transformOrigin: "center bottom", transition: "opacity 0.3s ease, transform 0.6s ease" }
     : undefined;
 
   const eyesStyle: React.CSSProperties | undefined = isCurled
@@ -67,13 +67,13 @@ const CurlingCat = () => {
             .a-head { animation: headTuck 3s ease-in-out infinite alternate; transform-origin: 120px 140px; }
             .a-body { animation: bodyCompress 3s ease-in-out infinite alternate; transform-origin: 250px 200px; }
             .a-tail { animation: tailCurl 3s ease-in-out infinite alternate; transform-origin: 340px 180px; }
-            .a-legs { animation: legsFold 3s ease-in-out infinite alternate; transform-origin: center top; }
+            .a-legs { animation: legsFold 3s ease-in-out infinite alternate; transform-origin: center bottom; }
             .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: center center; }
 
             @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(50px,20px) rotate(45deg); } }
             @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
             @keyframes tailCurl { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(40deg) translate(-20px,10px); } }
-            @keyframes legsFold { 0% { opacity:1; transform:translateY(0) scaleY(1); } 40% { opacity:1; transform:translateY(-20px) scaleY(0.5); } 70% { opacity:0.5; transform:translateY(-35px) scaleY(0.2); } 100% { opacity:0; transform:translateY(-45px) scaleY(0); } }
+            @keyframes legsFold { 0% { opacity:1; transform:scaleY(1); } 50% { opacity:0.5; transform:scaleY(0.3); } 100% { opacity:0; transform:scaleY(0); } }
             @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
           `}</style>
         )}
