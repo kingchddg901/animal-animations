@@ -56,10 +56,11 @@ const CurlingCat = () => {
   return (
     <div className="flex flex-col items-center gap-4">
       <svg
-        viewBox="0 0 480 320"
+        viewBox="-10 -10 500 340"
         width="360"
         height="240"
         xmlns="http://www.w3.org/2000/svg"
+        style={{ overflow: "visible" }}
       >
         {isAnimating && (
           <style>{`
