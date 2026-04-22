@@ -108,12 +108,12 @@ const CurlingCat = () => {
                C320,208 290,212 260,212
                C230,212 190,210 170,205
                C155,200 142,185 145,160 Z"
-            fill="#111"
+            fill="hsl(var(--cat-fur))"
           />
           {/* Subtle belly curve */}
           <path
             d="M175,200 C200,210 240,212 280,210 C310,208 335,202 340,195"
-            stroke="#1a1a1a"
+            stroke="hsl(var(--cat-fur-highlight))"
             strokeWidth="2"
             fill="none"
             opacity="0.3"
@@ -124,7 +124,7 @@ const CurlingCat = () => {
             d="M150,155 C145,148 140,142 135,140
                C130,138 128,142 130,148
                C132,155 140,162 150,165"
-            fill="#111"
+            fill="hsl(var(--cat-fur))"
           />
 
           {/* === FRONT LEGS === Under the front of the body */}
@@ -139,10 +139,9 @@ const CurlingCat = () => {
                    C174,278 177,274 177,268
                    C177,260 176,248 175,235
                    C174,222 172,210 170,200"
-                fill="#111"
+                fill="hsl(var(--cat-fur))"
               />
-              {/* Paw */}
-              <ellipse cx="167" cy="277" rx="12" ry="5" fill="#111" />
+              <ellipse cx="167" cy="277" rx="12" ry="5" fill="hsl(var(--cat-fur))" />
             </g>
             {/* Right front leg (slightly behind) */}
             <g className={isWalking ? "w-fr" : ""}>
@@ -154,9 +153,9 @@ const CurlingCat = () => {
                    C202,278 205,274 205,268
                    C205,260 204,248 203,235
                    C202,222 200,210 198,200"
-                fill="#0d0d0d"
+                fill="hsl(var(--cat-fur-shadow))"
               />
-              <ellipse cx="195" cy="277" rx="12" ry="5" fill="#0d0d0d" />
+              <ellipse cx="195" cy="277" rx="12" ry="5" fill="hsl(var(--cat-fur-shadow))" />
             </g>
           </g>
 
@@ -172,9 +171,9 @@ const CurlingCat = () => {
                    C314,278 316,272 315,265
                    C314,255 312,240 310,228
                    C308,215 306,205 305,198"
-                fill="#111"
+                fill="hsl(var(--cat-fur))"
               />
-              <ellipse cx="307" cy="277" rx="12" ry="5" fill="#111" />
+              <ellipse cx="307" cy="277" rx="12" ry="5" fill="hsl(var(--cat-fur))" />
             </g>
             {/* Right back leg */}
             <g className={isWalking ? "w-br" : ""}>
@@ -186,9 +185,9 @@ const CurlingCat = () => {
                    C342,278 344,272 343,265
                    C342,255 340,240 338,228
                    C336,215 334,202 332,195"
-                fill="#0d0d0d"
+                fill="hsl(var(--cat-fur-shadow))"
               />
-              <ellipse cx="336" cy="277" rx="12" ry="5" fill="#0d0d0d" />
+              <ellipse cx="336" cy="277" rx="12" ry="5" fill="hsl(var(--cat-fur-shadow))" />
             </g>
           </g>
 
@@ -200,7 +199,7 @@ const CurlingCat = () => {
                  C380,100 378,82 372,75
                  C368,70 364,72 363,78
                  C362,85 365,98 366,108"
-              stroke="#111"
+              stroke="hsl(var(--cat-fur))"
               strokeWidth="8"
               fill="none"
               strokeLinecap="round"
@@ -208,7 +207,7 @@ const CurlingCat = () => {
             {/* White tail tip */}
             <path
               d="M366,98 C365,90 363,82 362,76"
-              stroke="white"
+              stroke="hsl(var(--cat-white-tip))"
               strokeWidth="8"
               fill="none"
               strokeLinecap="round"
@@ -227,21 +226,21 @@ const CurlingCat = () => {
                  C155,143 148,148 138,150
                  C128,152 118,150 110,145
                  C105,142 101,137 100,130 Z"
-              fill="#111"
+              fill="hsl(var(--cat-fur))"
             />
             {/* Cheek fluff left */}
             <path
               d="M98,132 C94,140 96,148 104,150
                  C108,151 110,148 108,143
                  C106,138 100,135 98,132 Z"
-              fill="#111"
+              fill="hsl(var(--cat-fur))"
             />
             {/* Cheek fluff right */}
             <path
               d="M158,130 C162,136 162,144 156,148
                  C152,150 148,148 150,143
                  C152,138 156,134 158,130 Z"
-              fill="#111"
+              fill="hsl(var(--cat-fur))"
             />
 
             {/* Left ear */}
@@ -250,18 +249,18 @@ const CurlingCat = () => {
                  C102,82 96,60 95,48
                  C94,40 97,36 102,40
                  C108,46 114,64 116,82"
-              fill="#111"
+              fill="hsl(var(--cat-fur))"
             />
             <path
               d="M96,50 C95,42 97,38 100,38
                  C103,38 105,42 104,48 L96,50 Z"
-              fill="white"
+              fill="hsl(var(--cat-white-tip))"
             />
             <path
               d="M102,70 C100,60 98,50 100,44
                  C102,40 105,42 106,47
                  C108,54 108,64 108,74"
-              fill="#1a1a1a"
+              fill="hsl(var(--cat-ear-inner))"
             />
 
             {/* Right ear */}
@@ -270,18 +269,18 @@ const CurlingCat = () => {
                  C150,64 156,46 162,40
                  C167,36 170,40 169,48
                  C168,60 162,82 158,100"
-              fill="#111"
+              fill="hsl(var(--cat-fur))"
             />
             <path
               d="M161,48 C160,42 162,38 165,38
                  C168,38 170,42 169,50 L161,48 Z"
-              fill="white"
+              fill="hsl(var(--cat-white-tip))"
             />
             <path
               d="M154,74 C156,64 158,54 160,47
                  C161,42 164,40 165,44
                  C166,50 164,60 162,70"
-              fill="#1a1a1a"
+              fill="hsl(var(--cat-ear-inner))"
             />
 
             {/* === EYES === */}
@@ -289,35 +288,35 @@ const CurlingCat = () => {
               {/* Left eye */}
               <path
                 d="M112,112 C116,105 126,105 130,112 C126,119 116,119 112,112 Z"
-                fill="#22c55e"
+                fill="hsl(var(--cat-eye))"
               />
-              <ellipse cx="121" cy="112" rx="2" ry="5.5" fill="#111" />
-              <circle cx="124" cy="110" r="1.8" fill="white" opacity="0.85" />
-              <circle cx="119" cy="114" r="0.7" fill="white" opacity="0.4" />
+              <ellipse cx="121" cy="112" rx="2" ry="5.5" fill="hsl(var(--cat-pupil))" />
+              <circle cx="124" cy="110" r="1.8" fill="hsl(var(--cat-white-tip))" opacity="0.85" />
+              <circle cx="119" cy="114" r="0.7" fill="hsl(var(--cat-white-tip))" opacity="0.4" />
 
               {/* Right eye */}
               <path
                 d="M136,112 C140,105 150,105 154,112 C150,119 140,119 136,112 Z"
-                fill="#22c55e"
+                fill="hsl(var(--cat-eye))"
               />
-              <ellipse cx="145" cy="112" rx="2" ry="5.5" fill="#111" />
-              <circle cx="148" cy="110" r="1.8" fill="white" opacity="0.85" />
-              <circle cx="143" cy="114" r="0.7" fill="white" opacity="0.4" />
+              <ellipse cx="145" cy="112" rx="2" ry="5.5" fill="hsl(var(--cat-pupil))" />
+              <circle cx="148" cy="110" r="1.8" fill="hsl(var(--cat-white-tip))" opacity="0.85" />
+              <circle cx="143" cy="114" r="0.7" fill="hsl(var(--cat-white-tip))" opacity="0.4" />
             </g>
 
             {/* Nose */}
-            <path d="M132,126 L129,130 L135,130 Z" fill="#555" />
+            <path d="M132,126 L129,130 L135,130 Z" fill="hsl(var(--cat-nose))" />
             {/* Mouth */}
-            <path d="M132,130 C132,133 130,135 127,136" stroke="#333" strokeWidth="0.7" fill="none" />
-            <path d="M132,130 C132,133 134,135 137,136" stroke="#333" strokeWidth="0.7" fill="none" />
+            <path d="M132,130 C132,133 130,135 127,136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" fill="none" />
+            <path d="M132,130 C132,133 134,135 137,136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" fill="none" />
 
             {/* Whiskers */}
-            <line x1="105" y1="122" x2="72" y2="116" stroke="#555" strokeWidth="0.7" opacity="0.6" />
-            <line x1="105" y1="126" x2="68" y2="126" stroke="#555" strokeWidth="0.7" opacity="0.6" />
-            <line x1="105" y1="130" x2="72" y2="136" stroke="#555" strokeWidth="0.7" opacity="0.6" />
-            <line x1="158" y1="122" x2="188" y2="116" stroke="#555" strokeWidth="0.7" opacity="0.6" />
-            <line x1="158" y1="126" x2="192" y2="126" stroke="#555" strokeWidth="0.7" opacity="0.6" />
-            <line x1="158" y1="130" x2="188" y2="136" stroke="#555" strokeWidth="0.7" opacity="0.6" />
+            <line x1="105" y1="122" x2="72" y2="116" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="105" y1="126" x2="68" y2="126" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="105" y1="130" x2="72" y2="136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="158" y1="122" x2="188" y2="116" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="158" y1="126" x2="192" y2="126" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
+            <line x1="158" y1="130" x2="188" y2="136" stroke="hsl(var(--cat-whisker))" strokeWidth="0.7" opacity="0.6" />
           </g>
         </g>
       </svg>
