@@ -42,9 +42,9 @@ const CurlingCat = () => {
     : undefined;
 
   const legsStyle: React.CSSProperties | undefined = isCurled
-    ? { opacity: 0, transform: "scaleY(0)", transformOrigin: "center top", transition: "all 0.6s ease" }
+    ? { opacity: 0, transform: "translateY(40px) scaleY(0.1) rotate(15deg)", transformOrigin: "center top", transition: "all 1s ease" }
     : (isStanding || isWalking)
-    ? { opacity: 1, transform: "scaleY(1)", transformOrigin: "center top", transition: "all 0.6s ease" }
+    ? { opacity: 1, transform: "translateY(0) scaleY(1) rotate(0deg)", transformOrigin: "center top", transition: "all 0.6s ease" }
     : undefined;
 
   const eyesStyle: React.CSSProperties | undefined = isCurled
