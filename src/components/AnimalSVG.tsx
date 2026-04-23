@@ -227,32 +227,59 @@ const AnimalSVG = () => {
         {animal === "parrot" ? (
           /* Parrot: legs are anchored to perch, body pivots from leg attachment */
           <>
-            {/* Legs stay fixed */}
+            {/* Legs stay fixed on perch */}
             <parts.FrontLeftLeg />
             <parts.FrontRightLeg />
 
-            {/* Body group pivots from the leg-body junction (~y244, between the two legs) */}
+            {/* Body pivots from leg-body junction */}
             <g
-              className={isAnimating ? "a-body" : isWalking ? "w-bounce" : ""}
+              className={isAnimating ? "p-body" : isWalking ? "w-bounce" : ""}
               style={
                 isCurled
-                  ? { transform: "rotate(15deg)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  ? { transform: "rotate(5deg) scaleX(1.05)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : isStanding || isWalking
-                  ? { transform: "rotate(0deg)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  ? { transform: "rotate(0deg) scaleX(1)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : undefined
               }
             >
               <parts.Body />
 
-              {/* Tail */}
-              <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+              {/* Tail droops when sleeping */}
+              <g
+                className={isAnimating ? "p-tail" : isWalking ? "w-tail" : ""}
+                style={
+                  isCurled
+                    ? { transform: "rotate(10deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
+                    : isStanding || isWalking
+                    ? { transform: "rotate(0deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
+                    : undefined
+                }
+              >
                 <parts.Tail />
               </g>
 
-              {/* Head */}
-              <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+              {/* Head tucks backward into body when sleeping */}
+              <g
+                className={isAnimating ? "p-head" : isWalking ? "w-head" : ""}
+                style={
+                  isCurled
+                    ? { transform: "translate(15px,12px) rotate(-25deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
+                    : isStanding || isWalking
+                    ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
+                    : undefined
+                }
+              >
                 <parts.Head />
-                <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
+                <g
+                  className={isAnimating ? "p-eyes" : ""}
+                  style={
+                    isCurled
+                      ? { transform: "scaleY(0.15)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
+                      : isStanding || isWalking
+                      ? { transform: "scaleY(1)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
+                      : undefined
+                  }
+                >
                   <parts.Eyes />
                 </g>
                 <parts.Face />
