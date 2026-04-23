@@ -266,6 +266,14 @@ const AnimalSVG = () => {
             >
               <parts.Body />
 
+              {/* Wings — only visible in flight */}
+              {isWalking && (
+                <>
+                  <ParrotWingLeft />
+                  <ParrotWingRight />
+                </>
+              )}
+
               {/* Tail */}
               <g
                 className={isAnimating ? "p-tail" : isWalking ? "f-tail" : ""}
