@@ -204,7 +204,7 @@ const AnimalSVG = () => {
           `}</style>
         )}
 
-        {isWalking && (
+        {isWalking && animal !== "parrot" && (
           <style>{`
             .w-bounce { animation: wBounce 0.8s ease-in-out infinite; }
             .w-fl { animation: wStepA 0.8s ease-in-out infinite; transform-origin: 162px 198px; }
@@ -218,6 +218,22 @@ const AnimalSVG = () => {
             @keyframes wStepB { 0% { transform: rotate(10deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } 100% { transform: rotate(10deg); } }
             @keyframes wTailSway { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
             @keyframes wHeadBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+          `}</style>
+        )}
+
+        {/* Parrot flight animation: whole bird lifts off perch, wings flap */}
+        {isWalking && animal === "parrot" && (
+          <style>{`
+            .f-whole { animation: fLift 1.2s ease-in-out infinite; }
+            .f-body { animation: fBodyTilt 1.2s ease-in-out infinite; transform-origin: 258px 200px; }
+            .f-head { animation: fHeadBob 1.2s ease-in-out infinite; transform-origin: 220px 120px; }
+            .f-tail { animation: fTailStream 1.2s ease-in-out infinite alternate; transform-origin: 320px 225px; }
+            .f-legs { animation: fLegsTuck 1.2s ease-in-out infinite; transform-origin: 258px 244px; }
+            @keyframes fLift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+            @keyframes fBodyTilt { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+            @keyframes fHeadBob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(-5deg); } }
+            @keyframes fTailStream { 0% { transform: rotate(-5deg); } 100% { transform: rotate(12deg); } }
+            @keyframes fLegsTuck { 0%,100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-8px) scaleY(0.7); } }
           `}</style>
         )}
 
