@@ -167,7 +167,7 @@ const AnimalSVG = () => {
         xmlns="http://www.w3.org/2000/svg"
         style={svgStyle}
       >
-        {isAnimating && (
+        {isAnimating && animal !== "parrot" && (
           <style>{`
             .a-head { animation: headTuck 3s ease-in-out infinite alternate; transform-origin: 140px 140px; }
             .a-body { animation: bodyCompress 3s ease-in-out infinite alternate; transform-origin: 250px 200px; }
@@ -186,6 +186,20 @@ const AnimalSVG = () => {
             @keyframes frontRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(2px,-4px) rotate(-30deg) scaleY(0.88); } 100% { transform: translate(6px,-14px) rotate(-90deg) scaleY(0.38); } }
             @keyframes backLeftLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-3px,-6px) rotate(36deg) scaleY(0.88); } 100% { transform: translate(-8px,-18px) rotate(104deg) scaleY(0.38); } }
             @keyframes backRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-2px,-5px) rotate(34deg) scaleY(0.88); } 100% { transform: translate(-7px,-16px) rotate(100deg) scaleY(0.38); } }
+            @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
+          `}</style>
+        )}
+
+        {/* Parrot-specific animations: legs stay on perch, body puffs up, head tucks backward */}
+        {isAnimating && animal === "parrot" && (
+          <style>{`
+            .p-body { animation: pBodyPuff 3s ease-in-out infinite alternate; transform-origin: 258px 244px; }
+            .p-head { animation: pHeadTuck 3s ease-in-out infinite alternate; transform-origin: 220px 140px; }
+            .p-tail { animation: pTailDroop 3s ease-in-out infinite alternate; transform-origin: 320px 225px; }
+            .p-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: 218px 108px; }
+            @keyframes pBodyPuff { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(5deg) scaleX(1.05); } }
+            @keyframes pHeadTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(15px,12px) rotate(-25deg); } }
+            @keyframes pTailDroop { 0% { transform: rotate(0deg); } 100% { transform: rotate(10deg); } }
             @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
           `}</style>
         )}
@@ -213,32 +227,59 @@ const AnimalSVG = () => {
         {animal === "parrot" ? (
           /* Parrot: legs are anchored to perch, body pivots from leg attachment */
           <>
-            {/* Legs stay fixed */}
+            {/* Legs stay fixed on perch */}
             <parts.FrontLeftLeg />
             <parts.FrontRightLeg />
 
-            {/* Body group pivots from the leg-body junction (~y244, between the two legs) */}
+            {/* Body pivots from leg-body junction */}
             <g
-              className={isAnimating ? "a-body" : isWalking ? "w-bounce" : ""}
+              className={isAnimating ? "p-body" : isWalking ? "w-bounce" : ""}
               style={
                 isCurled
-                  ? { transform: "rotate(15deg)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  ? { transform: "rotate(5deg) scaleX(1.05)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : isStanding || isWalking
-                  ? { transform: "rotate(0deg)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  ? { transform: "rotate(0deg) scaleX(1)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : undefined
               }
             >
               <parts.Body />
 
-              {/* Tail */}
-              <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+              {/* Tail droops when sleeping */}
+              <g
+                className={isAnimating ? "p-tail" : isWalking ? "w-tail" : ""}
+                style={
+                  isCurled
+                    ? { transform: "rotate(10deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
+                    : isStanding || isWalking
+                    ? { transform: "rotate(0deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
+                    : undefined
+                }
+              >
                 <parts.Tail />
               </g>
 
-              {/* Head */}
-              <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+              {/* Head tucks backward into body when sleeping */}
+              <g
+                className={isAnimating ? "p-head" : isWalking ? "w-head" : ""}
+                style={
+                  isCurled
+                    ? { transform: "translate(15px,12px) rotate(-25deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
+                    : isStanding || isWalking
+                    ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
+                    : undefined
+                }
+              >
                 <parts.Head />
-                <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
+                <g
+                  className={isAnimating ? "p-eyes" : ""}
+                  style={
+                    isCurled
+                      ? { transform: "scaleY(0.15)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
+                      : isStanding || isWalking
+                      ? { transform: "scaleY(1)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
+                      : undefined
+                  }
+                >
                   <parts.Eyes />
                 </g>
                 <parts.Face />
