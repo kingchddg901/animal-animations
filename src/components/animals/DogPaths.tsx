@@ -24,29 +24,37 @@ const DogBody = () => (
 
 export const DogFrontLeftLeg = () => (
   <>
-    <path d="M158,208 C156,222 155,240 155,255 C155,265 156,272 160,276 C164,280 170,280 174,276 C178,272 178,265 177,255 C176,240 174,222 172,208" fill="hsl(var(--animal-fur))" />
-    <ellipse cx="167" cy="278" rx="13" ry="5" fill="hsl(var(--animal-fur))" />
+    {/* Upper leg */}
+    <path d="M158,208 C156,218 154,228 156,240 C158,246 162,248 165,246 C168,242 167,234 165,226 C163,218 163,212 165,208" fill="hsl(var(--animal-fur))" />
+    {/* Lower leg from knee */}
+    <path d="M165,246 C163,256 162,266 162,272 C162,276 165,280 170,280" fill="hsl(var(--animal-fur))" />
+    <ellipse cx="170" cy="279" rx="12" ry="5" fill="hsl(var(--animal-fur))" />
   </>
 );
 
 export const DogFrontRightLeg = () => (
   <>
-    <path d="M188,208 C186,222 185,240 185,255 C185,265 186,272 190,276 C194,280 200,280 204,276 C208,272 208,265 207,255 C206,240 204,222 202,208" fill="hsl(var(--animal-fur-shadow))" />
-    <ellipse cx="197" cy="278" rx="13" ry="5" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M188,208 C186,218 184,228 186,240 C188,246 192,248 195,246 C198,242 197,234 195,226 C193,218 193,212 195,208" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M195,246 C193,256 192,266 192,272 C192,276 195,280 200,280" fill="hsl(var(--animal-fur-shadow))" />
+    <ellipse cx="200" cy="279" rx="12" ry="5" fill="hsl(var(--animal-fur-shadow))" />
   </>
 );
 
 export const DogBackLeftLeg = () => (
   <>
-    <path d="M298,205 C292,218 290,232 292,248 C293,258 296,268 300,274 C304,278 310,278 314,274 C318,268 318,258 316,248 C314,232 310,218 308,205" fill="hsl(var(--animal-fur))" />
-    <ellipse cx="307" cy="277" rx="13" ry="5" fill="hsl(var(--animal-fur))" />
+    {/* Haunch angling forward to hock */}
+    <path d="M298,205 C294,215 290,225 292,238 C294,244 298,246 301,244 C304,240 303,232 301,224 C299,216 298,210 300,205" fill="hsl(var(--animal-fur))" />
+    {/* Lower leg from hock */}
+    <path d="M301,244 C300,254 300,266 301,272 C302,276 305,280 310,280" fill="hsl(var(--animal-fur))" />
+    <ellipse cx="310" cy="279" rx="12" ry="5" fill="hsl(var(--animal-fur))" />
   </>
 );
 
 export const DogBackRightLeg = () => (
   <>
-    <path d="M328,202 C324,215 322,230 324,248 C325,258 328,268 332,274 C336,278 342,278 345,274 C348,268 348,258 346,248 C344,230 340,215 338,202" fill="hsl(var(--animal-fur-shadow))" />
-    <ellipse cx="338" cy="277" rx="13" ry="5" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M328,202 C324,212 322,222 324,235 C326,242 330,244 333,242 C336,238 335,230 333,222 C331,214 330,208 332,202" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M333,242 C332,252 332,264 333,272 C334,276 337,280 342,280" fill="hsl(var(--animal-fur-shadow))" />
+    <ellipse cx="342" cy="279" rx="12" ry="5" fill="hsl(var(--animal-fur-shadow))" />
   </>
 );
 
