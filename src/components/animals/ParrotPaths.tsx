@@ -92,4 +92,43 @@ export const ParrotPerch = () => (
   <path d="M200,278 L320,278" stroke="hsl(var(--animal-whisker))" strokeWidth="6" strokeLinecap="round" opacity="0.5" />
 );
 
+/** Wings — visible during flight, pivot from shoulder area */
+export const ParrotWingLeft = () => (
+  <g className="f-wing-l">
+    <path
+      d="M210,155 C195,140 170,125 140,118
+         C120,114 100,118 95,128
+         C90,138 100,148 120,152
+         C145,157 175,158 210,160 Z"
+      fill="hsl(var(--animal-fur))"
+    />
+    <path
+      d="M210,157 C195,145 175,135 155,130
+         C140,127 125,130 122,138
+         C120,145 130,150 148,153
+         C165,156 190,158 210,160 Z"
+      fill="hsl(var(--animal-fur-shadow))" opacity="0.5"
+    />
+  </g>
+);
+
+export const ParrotWingRight = () => (
+  <g className="f-wing-r">
+    <path
+      d="M310,155 C325,140 350,125 380,118
+         C400,114 420,118 425,128
+         C430,138 420,148 400,152
+         C375,157 345,158 310,160 Z"
+      fill="hsl(var(--animal-fur))"
+    />
+    <path
+      d="M310,157 C325,145 345,135 365,130
+         C380,127 395,130 398,138
+         C400,145 390,150 372,153
+         C355,156 330,158 310,160 Z"
+      fill="hsl(var(--animal-fur-shadow))" opacity="0.5"
+    />
+  </g>
+);
+
 export default ParrotBody;

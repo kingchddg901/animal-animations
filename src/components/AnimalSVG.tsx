@@ -2,7 +2,7 @@ import { useState } from "react";
 import CatBody, { CatLegs, CatFrontRightLeg, CatBackLeftLeg, CatBackRightLeg, CatTail, CatHead, CatEyes, CatFace } from "./animals/CatPaths";
 import DogBody, { DogFrontLeftLeg, DogFrontRightLeg, DogBackLeftLeg, DogBackRightLeg, DogTail, DogHead, DogEyes, DogFace } from "./animals/DogPaths";
 import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeftLeg, RaccoonBackRightLeg, RaccoonTail, RaccoonHead, RaccoonEyes, RaccoonFace } from "./animals/RaccoonPaths";
-import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch } from "./animals/ParrotPaths";
+import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch, ParrotWingLeft, ParrotWingRight } from "./animals/ParrotPaths";
 
 export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
 type Pose = "animating" | "standing" | "curled" | "walking";
@@ -229,11 +229,15 @@ const AnimalSVG = () => {
             .f-head { animation: fHeadBob 1.2s ease-in-out infinite; transform-origin: 220px 120px; }
             .f-tail { animation: fTailStream 1.2s ease-in-out infinite alternate; transform-origin: 320px 225px; }
             .f-legs { animation: fLegsTuck 1.2s ease-in-out infinite; transform-origin: 258px 244px; }
+            .f-wing-l { animation: fWingFlapL 0.4s ease-in-out infinite alternate; transform-origin: 210px 155px; }
+            .f-wing-r { animation: fWingFlapR 0.4s ease-in-out infinite alternate; transform-origin: 310px 155px; }
             @keyframes fLift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
             @keyframes fBodyTilt { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
             @keyframes fHeadBob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(-5deg); } }
             @keyframes fTailStream { 0% { transform: rotate(-5deg); } 100% { transform: rotate(12deg); } }
             @keyframes fLegsTuck { 0%,100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-8px) scaleY(0.7); } }
+            @keyframes fWingFlapL { 0% { transform: rotate(25deg); } 100% { transform: rotate(-30deg); } }
+            @keyframes fWingFlapR { 0% { transform: rotate(-25deg); } 100% { transform: rotate(30deg); } }
           `}</style>
         )}
 
@@ -261,6 +265,14 @@ const AnimalSVG = () => {
               }
             >
               <parts.Body />
+
+              {/* Wings — only visible in flight */}
+              {isWalking && (
+                <>
+                  <ParrotWingLeft />
+                  <ParrotWingRight />
+                </>
+              )}
 
               {/* Tail */}
               <g
