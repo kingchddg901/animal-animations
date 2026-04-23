@@ -30,39 +30,46 @@ const RaccoonBody = () => (
 
 export const RaccoonFrontLeftLeg = () => (
   <>
-    {/* Stocky leg */}
-    <path d="M172,225 C168,238 166,252 167,264 C168,270 171,276 176,278 C181,280 186,278 188,274 C190,268 189,258 187,248 C185,235 182,225 180,220" fill="hsl(var(--animal-fur))" />
+    {/* Upper leg to knee */}
+    <path d="M172,225 C169,235 168,245 170,252 C172,256 176,258 178,255 C180,250 179,244 177,238 C175,232 175,228 176,224" fill="hsl(var(--animal-fur))" />
+    {/* Lower leg from knee */}
+    <path d="M178,255 C176,264 175,274 176,280" fill="hsl(var(--animal-fur))" />
     {/* Hand-like paw with fingers */}
-    <path d="M170,278 C168,282 170,286 174,286 C176,286 177,284 177,282" fill="hsl(var(--animal-pupil))" />
-    <path d="M174,278 C174,283 176,287 179,287 C181,287 182,284 181,282" fill="hsl(var(--animal-pupil))" />
-    <path d="M179,277 C180,282 183,286 186,285 C188,284 188,281 186,279" fill="hsl(var(--animal-pupil))" />
-    <path d="M183,276 C185,280 188,283 190,282 C192,280 191,277 189,276" fill="hsl(var(--animal-pupil))" />
+    <path d="M170,280 C168,284 170,288 174,288 C176,288 177,286 177,284" fill="hsl(var(--animal-pupil))" />
+    <path d="M174,280 C174,285 176,289 179,289 C181,289 182,286 181,284" fill="hsl(var(--animal-pupil))" />
+    <path d="M179,279 C180,284 183,288 186,287 C188,286 188,283 186,281" fill="hsl(var(--animal-pupil))" />
+    <path d="M183,278 C185,282 188,285 190,284 C192,282 191,279 189,278" fill="hsl(var(--animal-pupil))" />
   </>
 );
 
 export const RaccoonFrontRightLeg = () => (
   <>
-    <path d="M205,225 C202,238 200,252 201,264 C202,270 205,276 210,278 C215,280 220,278 222,274 C224,268 223,258 221,248 C219,235 216,225 214,220" fill="hsl(var(--animal-fur-shadow))" />
-    <path d="M204,278 C202,282 204,286 208,286 C210,286 211,284 211,282" fill="hsl(var(--animal-pupil))" />
-    <path d="M208,278 C208,283 210,287 213,287 C215,287 216,284 215,282" fill="hsl(var(--animal-pupil))" />
-    <path d="M213,277 C214,282 217,286 220,285 C222,284 222,281 220,279" fill="hsl(var(--animal-pupil))" />
-    <path d="M217,276 C219,280 222,283 224,282 C226,280 225,277 223,276" fill="hsl(var(--animal-pupil))" />
+    <path d="M205,225 C202,235 201,245 203,252 C205,256 209,258 211,255 C213,250 212,244 210,238 C208,232 208,228 209,224" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M211,255 C209,264 208,274 209,280" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M203,280 C201,284 203,288 207,288 C209,288 210,286 210,284" fill="hsl(var(--animal-pupil))" />
+    <path d="M207,280 C207,285 209,289 212,289 C214,289 215,286 214,284" fill="hsl(var(--animal-pupil))" />
+    <path d="M212,279 C213,284 216,288 219,287 C221,286 221,283 219,281" fill="hsl(var(--animal-pupil))" />
+    <path d="M216,278 C218,282 221,285 223,284 C225,282 224,279 222,278" fill="hsl(var(--animal-pupil))" />
   </>
 );
 
 export const RaccoonBackLeftLeg = () => (
   <>
-    <path d="M295,222 C290,235 288,250 290,264 C291,270 294,276 299,278 C304,280 309,278 311,274 C313,268 312,258 310,248 C308,235 304,222 302,218" fill="hsl(var(--animal-fur))" />
-    <path d="M293,278 C291,282 293,286 297,286 C299,286 300,284 300,282" fill="hsl(var(--animal-pupil))" />
-    <path d="M297,278 C297,283 299,287 302,287 C304,287 305,284 304,282" fill="hsl(var(--animal-pupil))" />
-    <path d="M302,277 C303,282 306,286 309,285 C311,284 311,281 309,279" fill="hsl(var(--animal-pupil))" />
-    <path d="M306,276 C308,280 311,283 313,282 C315,280 314,277 312,276" fill="hsl(var(--animal-pupil))" />
+    {/* Haunch to hock */}
+    <path d="M295,222 C291,232 289,242 291,252 C293,256 297,258 300,255 C302,250 301,242 299,235 C297,228 296,224 298,220" fill="hsl(var(--animal-fur))" />
+    {/* Lower leg from hock */}
+    <path d="M300,255 C298,264 298,274 299,280" fill="hsl(var(--animal-fur))" />
+    <path d="M293,280 C291,284 293,288 297,288 C299,288 300,286 300,284" fill="hsl(var(--animal-pupil))" />
+    <path d="M297,280 C297,285 299,289 302,289 C304,289 305,286 304,284" fill="hsl(var(--animal-pupil))" />
+    <path d="M302,279 C303,284 306,288 309,287 C311,286 311,283 309,281" fill="hsl(var(--animal-pupil))" />
+    <path d="M306,278 C308,282 311,285 313,284 C315,282 314,279 312,278" fill="hsl(var(--animal-pupil))" />
   </>
 );
 
 export const RaccoonBackRightLeg = () => (
   <>
-    <path d="M328,218 C324,232 322,248 324,264 C325,270 328,276 333,278 C338,280 343,278 345,274 C347,268 346,258 344,248 C342,232 338,218 336,214" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M328,218 C324,228 323,238 325,248 C327,254 331,256 333,253 C335,248 334,240 332,233 C330,226 330,220 332,216" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M333,253 C332,262 332,272 333,278" fill="hsl(var(--animal-fur-shadow))" />
     <path d="M327,278 C325,282 327,286 331,286 C333,286 334,284 334,282" fill="hsl(var(--animal-pupil))" />
     <path d="M331,278 C331,283 333,287 336,287 C338,287 339,284 338,282" fill="hsl(var(--animal-pupil))" />
     <path d="M336,277 C337,282 340,286 343,285 C345,284 345,281 343,279" fill="hsl(var(--animal-pupil))" />
