@@ -210,43 +210,81 @@ const AnimalSVG = () => {
         {/* Extra elements like perch */}
         {parts.Extra && <parts.Extra />}
 
-        <g className={isAnimating ? "a-body" : isWalking ? "w-bounce" : ""} style={bodyStyle}>
-          <parts.Body />
+        {animal === "parrot" ? (
+          /* Parrot: legs are anchored to perch, body pivots from leg attachment */
+          <>
+            {/* Legs stay fixed */}
+            <parts.FrontLeftLeg />
+            <parts.FrontRightLeg />
 
-          {/* Front legs */}
-          <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
-            <g className={`${isAnimating ? "a-fl" : ""} ${isWalking ? "w-fl" : ""}`.trim()} style={frontLeftLegStyle}>
-              <parts.FrontLeftLeg />
+            {/* Body group pivots from the leg-body junction (~y244, between the two legs) */}
+            <g
+              className={isAnimating ? "a-body" : isWalking ? "w-bounce" : ""}
+              style={
+                isCurled
+                  ? { transform: "rotate(15deg)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  : isStanding || isWalking
+                  ? { transform: "rotate(0deg)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  : undefined
+              }
+            >
+              <parts.Body />
+
+              {/* Tail */}
+              <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+                <parts.Tail />
+              </g>
+
+              {/* Head */}
+              <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+                <parts.Head />
+                <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
+                  <parts.Eyes />
+                </g>
+                <parts.Face />
+              </g>
             </g>
-            <g className={`${isAnimating ? "a-fr" : ""} ${isWalking ? "w-fr" : ""}`.trim()} style={frontRightLegStyle}>
-              <parts.FrontRightLeg />
+          </>
+        ) : (
+          /* Quadrupeds: body is the anchor, legs nest inside */
+          <g className={isAnimating ? "a-body" : isWalking ? "w-bounce" : ""} style={bodyStyle}>
+            <parts.Body />
+
+            {/* Front legs */}
+            <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
+              <g className={`${isAnimating ? "a-fl" : ""} ${isWalking ? "w-fl" : ""}`.trim()} style={frontLeftLegStyle}>
+                <parts.FrontLeftLeg />
+              </g>
+              <g className={`${isAnimating ? "a-fr" : ""} ${isWalking ? "w-fr" : ""}`.trim()} style={frontRightLegStyle}>
+                <parts.FrontRightLeg />
+              </g>
+            </g>
+
+            {/* Back legs */}
+            <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
+              <g className={`${isAnimating ? "a-bl" : ""} ${isWalking ? "w-bl" : ""}`.trim()} style={backLeftLegStyle}>
+                <parts.BackLeftLeg />
+              </g>
+              <g className={`${isAnimating ? "a-br" : ""} ${isWalking ? "w-br" : ""}`.trim()} style={backRightLegStyle}>
+                <parts.BackRightLeg />
+              </g>
+            </g>
+
+            {/* Tail */}
+            <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+              <parts.Tail />
+            </g>
+
+            {/* Head */}
+            <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+              <parts.Head />
+              <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
+                <parts.Eyes />
+              </g>
+              <parts.Face />
             </g>
           </g>
-
-          {/* Back legs */}
-          <g className={isAnimating ? "a-legs" : ""} style={legsStyle}>
-            <g className={`${isAnimating ? "a-bl" : ""} ${isWalking ? "w-bl" : ""}`.trim()} style={backLeftLegStyle}>
-              <parts.BackLeftLeg />
-            </g>
-            <g className={`${isAnimating ? "a-br" : ""} ${isWalking ? "w-br" : ""}`.trim()} style={backRightLegStyle}>
-              <parts.BackRightLeg />
-            </g>
-          </g>
-
-          {/* Tail */}
-          <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
-            <parts.Tail />
-          </g>
-
-          {/* Head */}
-          <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
-            <parts.Head />
-            <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
-              <parts.Eyes />
-            </g>
-            <parts.Face />
-          </g>
-        </g>
+        )}
       </svg>
 
       <button
