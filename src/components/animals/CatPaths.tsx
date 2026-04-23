@@ -20,29 +20,37 @@ const CatPaths = () => (
 
 export const CatLegs = () => (
   <>
-    <path d="M162,198 C160,210 158,228 157,245 C156,255 155,262 156,268 C157,274 162,278 168,278 C174,278 177,274 177,268 C177,260 176,248 175,235 C174,222 172,210 170,200" fill="hsl(var(--animal-fur))" />
-    <ellipse cx="167" cy="277" rx="12" ry="5" fill="hsl(var(--animal-fur))" />
+    {/* Front left — upper segment angled back, knee bend, lower segment to paw */}
+    <path d="M162,198 C160,208 158,218 160,230 C162,236 166,238 168,236 C172,232 170,224 168,218 C166,212 166,206 168,200" fill="hsl(var(--animal-fur))" />
+    {/* Lower leg */}
+    <path d="M168,236 C166,245 164,258 164,268 C164,274 167,278 172,278" fill="hsl(var(--animal-fur))" />
+    <ellipse cx="172" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur))" />
   </>
 );
 
 export const CatFrontRightLeg = () => (
   <>
-    <path d="M190,198 C188,210 186,228 185,245 C184,255 184,262 185,268 C186,274 190,278 196,278 C202,278 205,274 205,268 C205,260 204,248 203,235 C202,222 200,210 198,200" fill="hsl(var(--animal-fur-shadow))" />
-    <ellipse cx="195" cy="277" rx="12" ry="5" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M190,198 C188,208 186,218 188,230 C190,236 194,238 196,236 C200,232 198,224 196,218 C194,212 194,206 196,200" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M196,236 C194,245 192,258 192,268 C192,274 195,278 200,278" fill="hsl(var(--animal-fur-shadow))" />
+    <ellipse cx="200" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur-shadow))" />
   </>
 );
 
 export const CatBackLeftLeg = () => (
   <>
-    <path d="M300,195 C295,205 290,218 292,232 C293,242 295,255 296,265 C297,272 300,278 307,278 C314,278 316,272 315,265 C314,255 312,240 310,228 C308,215 306,205 305,198" fill="hsl(var(--animal-fur))" />
-    <ellipse cx="307" cy="277" rx="12" ry="5" fill="hsl(var(--animal-fur))" />
+    {/* Back left — haunches angle forward to hock, then back down */}
+    <path d="M300,195 C296,205 292,215 294,228 C296,234 300,236 303,234 C306,230 305,222 303,215 C301,208 300,202 302,198" fill="hsl(var(--animal-fur))" />
+    {/* Lower leg from hock */}
+    <path d="M303,234 C302,245 302,258 303,268 C304,274 307,278 312,278" fill="hsl(var(--animal-fur))" />
+    <ellipse cx="312" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur))" />
   </>
 );
 
 export const CatBackRightLeg = () => (
   <>
-    <path d="M325,192 C322,202 320,215 322,230 C323,242 325,255 326,265 C327,272 330,278 336,278 C342,278 344,272 343,265 C342,255 340,240 338,228 C336,215 334,202 332,195" fill="hsl(var(--animal-fur-shadow))" />
-    <ellipse cx="336" cy="277" rx="12" ry="5" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M325,192 C322,202 320,212 322,225 C324,232 328,234 330,232 C333,228 332,220 330,213 C328,206 328,200 330,195" fill="hsl(var(--animal-fur-shadow))" />
+    <path d="M330,232 C329,243 329,256 330,268 C331,274 334,278 339,278" fill="hsl(var(--animal-fur-shadow))" />
+    <ellipse cx="339" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur-shadow))" />
   </>
 );
 
