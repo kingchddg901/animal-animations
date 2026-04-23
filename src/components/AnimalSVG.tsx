@@ -2,7 +2,7 @@ import { useState } from "react";
 import CatBody, { CatLegs, CatFrontRightLeg, CatBackLeftLeg, CatBackRightLeg, CatTail, CatHead, CatEyes, CatFace } from "./animals/CatPaths";
 import DogBody, { DogFrontLeftLeg, DogFrontRightLeg, DogBackLeftLeg, DogBackRightLeg, DogTail, DogHead, DogEyes, DogFace } from "./animals/DogPaths";
 import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeftLeg, RaccoonBackRightLeg, RaccoonTail, RaccoonHead, RaccoonEyes, RaccoonFace } from "./animals/RaccoonPaths";
-import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch } from "./animals/ParrotPaths";
+import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch, ParrotWingLeft, ParrotWingRight } from "./animals/ParrotPaths";
 
 export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
 type Pose = "animating" | "standing" | "curled" | "walking";
