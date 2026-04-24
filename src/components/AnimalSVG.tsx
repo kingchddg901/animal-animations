@@ -104,38 +104,40 @@ const AnimalSVG = () => {
 
   const headStyle: React.CSSProperties | undefined = isCurled
     ? { transform: "translate(20px, 10px) rotate(30deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" }
-    : (isStanding || isWalking) ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" } : undefined;
+    : (isStanding || isWalking || isAlert) ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" } : undefined;
 
-  const bodyStyle: React.CSSProperties | undefined = isCurled
+  const bodyStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "rotate(15deg)", transformOrigin: "250px 200px", transition: "transform 1s ease" }
     : (isStanding || isWalking) ? { transform: "rotate(0deg)", transformOrigin: "250px 200px", transition: "transform 1s ease" } : undefined;
 
-  const tailStyle: React.CSSProperties | undefined = isCurled
+  const tailStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "rotate(40deg) translate(-20px, 10px)", transformOrigin: "340px 180px", transition: "transform 1s ease" }
     : (isStanding || isWalking) ? { transform: "rotate(0deg) translate(0,0)", transformOrigin: "340px 180px", transition: "transform 1s ease" } : undefined;
 
-  const legsStyle: React.CSSProperties | undefined = isCurled
+  const legsStyle: React.CSSProperties | undefined = isTucked
     ? { opacity: 0, transition: "opacity 0.35s ease 0.45s" }
     : (isStanding || isWalking) ? { opacity: 1, transition: "opacity 0.25s ease" } : undefined;
 
-  const frontLeftLegStyle: React.CSSProperties | undefined = isCurled
+  const frontLeftLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(8px, -16px) rotate(-96deg) scaleY(0.38)", transformOrigin: "166px 198px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "166px 198px", transition: legMotionTransition } : undefined;
 
-  const frontRightLegStyle: React.CSSProperties | undefined = isCurled
+  const frontRightLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(6px, -14px) rotate(-90deg) scaleY(0.38)", transformOrigin: "194px 198px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "194px 198px", transition: legMotionTransition } : undefined;
 
-  const backLeftLegStyle: React.CSSProperties | undefined = isCurled
+  const backLeftLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(-8px, -18px) rotate(104deg) scaleY(0.38)", transformOrigin: "303px 198px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "303px 198px", transition: legMotionTransition } : undefined;
 
-  const backRightLegStyle: React.CSSProperties | undefined = isCurled
+  const backRightLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(-7px, -16px) rotate(100deg) scaleY(0.38)", transformOrigin: "332px 195px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "332px 195px", transition: legMotionTransition } : undefined;
 
   const eyesStyle: React.CSSProperties | undefined = isCurled
     ? { transform: "scaleY(0.15)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" }
+    : isAlert
+    ? { transform: "scaleY(1.15)", transformOrigin: "145px 117px", transition: "transform 0.4s ease" }
     : (isStanding || isWalking) ? { transform: "scaleY(1)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" } : undefined;
 
   // Build inline CSS vars from the animal color map
