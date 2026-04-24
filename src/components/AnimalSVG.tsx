@@ -89,13 +89,14 @@ const animalLabels: Record<AnimalType, string> = {
   dog: "🐕 Dog",
   raccoon: "🦝 Raccoon",
   parrot: "🦜 Parrot",
+  snake: "🐍 Snake",
 };
 
 const AnimalSVG = () => {
   const [animal, setAnimal] = useState<AnimalType>("cat");
   const [pose, setPose] = useState<Pose>("animating");
 
-  const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot"];
+  const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot", "snake"];
   const poses: Pose[] = ["animating", "standing", "curled", "alert", "walking"];
   const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
 
