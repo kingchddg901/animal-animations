@@ -3,11 +3,12 @@ import CatBody, { CatLegs, CatFrontRightLeg, CatBackLeftLeg, CatBackRightLeg, Ca
 import DogBody, { DogFrontLeftLeg, DogFrontRightLeg, DogBackLeftLeg, DogBackRightLeg, DogTail, DogHead, DogEyes, DogFace } from "./animals/DogPaths";
 import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeftLeg, RaccoonBackRightLeg, RaccoonTail, RaccoonHead, RaccoonEyes, RaccoonFace } from "./animals/RaccoonPaths";
 import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch, ParrotWingLeft, ParrotWingRight } from "./animals/ParrotPaths";
+import Snake from "./animals/SnakePaths";
 
-export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
+export type AnimalType = "cat" | "dog" | "raccoon" | "parrot" | "snake";
 type Pose = "animating" | "standing" | "curled" | "alert" | "walking";
 
-const animalParts: Record<AnimalType, {
+const animalParts: Partial<Record<AnimalType, {
   Body: React.FC;
   FrontLeftLeg: React.FC;
   FrontRightLeg: React.FC;
@@ -18,7 +19,7 @@ const animalParts: Record<AnimalType, {
   Eyes: React.FC;
   Face: React.FC;
   Extra?: React.FC;
-}> = {
+}>> = {
   cat: { Body: CatBody, FrontLeftLeg: CatLegs, FrontRightLeg: CatFrontRightLeg, BackLeftLeg: CatBackLeftLeg, BackRightLeg: CatBackRightLeg, Tail: CatTail, Head: CatHead, Eyes: CatEyes, Face: CatFace },
   dog: { Body: DogBody, FrontLeftLeg: DogFrontLeftLeg, FrontRightLeg: DogFrontRightLeg, BackLeftLeg: DogBackLeftLeg, BackRightLeg: DogBackRightLeg, Tail: DogTail, Head: DogHead, Eyes: DogEyes, Face: DogFace },
   raccoon: { Body: RaccoonBody, FrontLeftLeg: RaccoonFrontLeftLeg, FrontRightLeg: RaccoonFrontRightLeg, BackLeftLeg: RaccoonBackLeftLeg, BackRightLeg: RaccoonBackRightLeg, Tail: RaccoonTail, Head: RaccoonHead, Eyes: RaccoonEyes, Face: RaccoonFace },
@@ -70,6 +71,17 @@ const animalColors: Record<AnimalType, Record<string, string>> = {
     "--animal-ear-inner": "145 45% 30%",
     "--animal-white-tip": "0 0% 95%",
   },
+  snake: {
+    "--animal-fur": "95 45% 32%",
+    "--animal-fur-shadow": "95 50% 18%",
+    "--animal-fur-highlight": "60 70% 55%",
+    "--animal-eye": "45 95% 55%",
+    "--animal-pupil": "0 0% 5%",
+    "--animal-nose": "0 0% 10%",
+    "--animal-whisker": "0 0% 30%",
+    "--animal-ear-inner": "95 40% 25%",
+    "--animal-white-tip": "60 50% 85%",
+  },
 };
 
 const animalLabels: Record<AnimalType, string> = {
@@ -77,17 +89,24 @@ const animalLabels: Record<AnimalType, string> = {
   dog: "🐕 Dog",
   raccoon: "🦝 Raccoon",
   parrot: "🦜 Parrot",
+  snake: "🐍 Snake",
 };
 
 const AnimalSVG = () => {
   const [animal, setAnimal] = useState<AnimalType>("cat");
   const [pose, setPose] = useState<Pose>("animating");
 
-  const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot"];
+  const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot", "snake"];
   const poses: Pose[] = ["animating", "standing", "curled", "alert", "walking"];
   const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
 
-  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", alert: "Alert", walking: animal === "parrot" ? "Flying" : "Walking" };
+  const poseLabels: Record<Pose, string> = {
+    animating: "Curling",
+    standing: "Standing",
+    curled: animal === "snake" ? "Resting" : "Sleeping",
+    alert: "Alert",
+    walking: animal === "parrot" ? "Flying" : animal === "snake" ? "Slithering" : "Walking",
+  };
 
   const isAnimating = pose === "animating";
   const isCurled = pose === "curled";
@@ -279,9 +298,23 @@ const AnimalSVG = () => {
         )}
 
         {/* Extra elements like perch */}
-        {parts.Extra && <parts.Extra />}
+        {parts?.Extra && <parts.Extra />}
 
-        {animal === "parrot" ? (
+        {animal === "snake" ? (
+          <Snake
+            mode={
+              isAnimating
+                ? "curling"
+                : isWalking
+                ? "moving"
+                : isAlert
+                ? "alert"
+                : isCurled
+                ? "resting"
+                : "standing"
+            }
+          />
+        ) : animal === "parrot" && parts ? (
           /* Parrot: legs anchored to perch, flight lifts whole bird */
           <g className={isWalking ? "f-whole" : ""}>
             {/* Legs — tuck during flight, stay fixed otherwise */}
