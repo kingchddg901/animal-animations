@@ -5,7 +5,7 @@ import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeft
 import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch, ParrotWingLeft, ParrotWingRight } from "./animals/ParrotPaths";
 
 export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
-type Pose = "animating" | "standing" | "curled" | "walking";
+type Pose = "animating" | "standing" | "curled" | "alert" | "walking";
 
 const animalParts: Record<AnimalType, {
   Body: React.FC;
@@ -84,15 +84,18 @@ const AnimalSVG = () => {
   const [pose, setPose] = useState<Pose>("animating");
 
   const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot"];
-  const poses: Pose[] = ["animating", "standing", "curled", "walking"];
+  const poses: Pose[] = ["animating", "standing", "curled", "alert", "walking"];
   const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
 
-  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", walking: animal === "parrot" ? "Flying" : "Walking" };
+  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", alert: "Alert", walking: animal === "parrot" ? "Flying" : "Walking" };
 
   const isAnimating = pose === "animating";
   const isCurled = pose === "curled";
+  const isAlert = pose === "alert";
   const isWalking = pose === "walking";
   const isStanding = pose === "standing";
+  // Alert shares the curled body/legs/tail but keeps head up and eyes open
+  const isTucked = isCurled || isAlert;
 
   const parts = animalParts[animal];
   const colors = animalColors[animal];
@@ -101,38 +104,40 @@ const AnimalSVG = () => {
 
   const headStyle: React.CSSProperties | undefined = isCurled
     ? { transform: "translate(20px, 10px) rotate(30deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" }
-    : (isStanding || isWalking) ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" } : undefined;
+    : (isStanding || isWalking || isAlert) ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "140px 140px", transition: "transform 1s ease" } : undefined;
 
-  const bodyStyle: React.CSSProperties | undefined = isCurled
+  const bodyStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "rotate(15deg)", transformOrigin: "250px 200px", transition: "transform 1s ease" }
     : (isStanding || isWalking) ? { transform: "rotate(0deg)", transformOrigin: "250px 200px", transition: "transform 1s ease" } : undefined;
 
-  const tailStyle: React.CSSProperties | undefined = isCurled
+  const tailStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "rotate(40deg) translate(-20px, 10px)", transformOrigin: "340px 180px", transition: "transform 1s ease" }
     : (isStanding || isWalking) ? { transform: "rotate(0deg) translate(0,0)", transformOrigin: "340px 180px", transition: "transform 1s ease" } : undefined;
 
-  const legsStyle: React.CSSProperties | undefined = isCurled
+  const legsStyle: React.CSSProperties | undefined = isTucked
     ? { opacity: 0, transition: "opacity 0.35s ease 0.45s" }
     : (isStanding || isWalking) ? { opacity: 1, transition: "opacity 0.25s ease" } : undefined;
 
-  const frontLeftLegStyle: React.CSSProperties | undefined = isCurled
+  const frontLeftLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(8px, -16px) rotate(-96deg) scaleY(0.38)", transformOrigin: "166px 198px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "166px 198px", transition: legMotionTransition } : undefined;
 
-  const frontRightLegStyle: React.CSSProperties | undefined = isCurled
+  const frontRightLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(6px, -14px) rotate(-90deg) scaleY(0.38)", transformOrigin: "194px 198px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "194px 198px", transition: legMotionTransition } : undefined;
 
-  const backLeftLegStyle: React.CSSProperties | undefined = isCurled
+  const backLeftLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(-8px, -18px) rotate(104deg) scaleY(0.38)", transformOrigin: "303px 198px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "303px 198px", transition: legMotionTransition } : undefined;
 
-  const backRightLegStyle: React.CSSProperties | undefined = isCurled
+  const backRightLegStyle: React.CSSProperties | undefined = isTucked
     ? { transform: "translate(-7px, -16px) rotate(100deg) scaleY(0.38)", transformOrigin: "332px 195px", transition: legMotionTransition }
     : isStanding ? { transform: "translate(0, 0) rotate(0deg) scaleY(1)", transformOrigin: "332px 195px", transition: legMotionTransition } : undefined;
 
   const eyesStyle: React.CSSProperties | undefined = isCurled
     ? { transform: "scaleY(0.15)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" }
+    : isAlert
+    ? { transform: "scaleY(1.15)", transformOrigin: "145px 117px", transition: "transform 0.4s ease" }
     : (isStanding || isWalking) ? { transform: "scaleY(1)", transformOrigin: "145px 117px", transition: "transform 0.8s ease" } : undefined;
 
   // Build inline CSS vars from the animal color map
@@ -254,6 +259,25 @@ const AnimalSVG = () => {
           `}</style>
         )}
 
+        {/* Alert pose: tucked but watchful — head scans, ears/tail twitch */}
+        {isAlert && animal !== "parrot" && (
+          <style>{`
+            .al-head { animation: alHeadScan 2.4s ease-in-out infinite; transform-origin: 140px 140px; }
+            .al-tail { animation: alTailFlick 1.6s ease-in-out infinite; transform-origin: 340px 180px; }
+            @keyframes alHeadScan { 0%,100% { transform: translate(0,0) rotate(-6deg); } 50% { transform: translate(2px,-1px) rotate(6deg); } }
+            @keyframes alTailFlick { 0%,70%,100% { transform: rotate(40deg) translate(-20px,10px); } 80% { transform: rotate(55deg) translate(-22px,8px); } 90% { transform: rotate(30deg) translate(-18px,12px); } }
+          `}</style>
+        )}
+
+        {isAlert && animal === "parrot" && (
+          <style>{`
+            .al-p-head { animation: alPHeadScan 2.4s ease-in-out infinite; transform-origin: 220px 140px; }
+            .al-p-body { animation: alPBodyShift 3s ease-in-out infinite alternate; transform-origin: 258px 244px; }
+            @keyframes alPHeadScan { 0%,100% { transform: translate(0,0) rotate(-8deg); } 50% { transform: translate(3px,-2px) rotate(10deg); } }
+            @keyframes alPBodyShift { 0% { transform: rotate(0deg) scaleX(1.05); } 100% { transform: rotate(2deg) scaleX(1.06); } }
+          `}</style>
+        )}
+
         {/* Extra elements like perch */}
         {parts.Extra && <parts.Extra />}
 
@@ -268,10 +292,12 @@ const AnimalSVG = () => {
 
             {/* Body */}
             <g
-              className={isAnimating ? "p-body" : isWalking ? "f-body" : ""}
+              className={isAnimating ? "p-body" : isWalking ? "f-body" : isAlert ? "al-p-body" : ""}
               style={
                 isCurled
                   ? { transform: "rotate(5deg) scaleX(1.05)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  : isAlert
+                  ? { transform: "rotate(0deg) scaleX(1.05)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : isStanding
                   ? { transform: "rotate(0deg) scaleX(1)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : undefined
@@ -293,6 +319,8 @@ const AnimalSVG = () => {
                 style={
                   isCurled
                     ? { transform: "rotate(10deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
+                    : isAlert
+                    ? { transform: "rotate(8deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
                     : isStanding
                     ? { transform: "rotate(0deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
                     : undefined
@@ -303,11 +331,11 @@ const AnimalSVG = () => {
 
               {/* Head */}
               <g
-                className={isAnimating ? "p-head" : isWalking ? "f-head" : ""}
+                className={isAnimating ? "p-head" : isWalking ? "f-head" : isAlert ? "al-p-head" : ""}
                 style={
                   isCurled
                     ? { transform: "translate(15px,12px) rotate(-25deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
-                    : isStanding
+                    : (isStanding || isAlert)
                     ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
                     : undefined
                 }
@@ -318,6 +346,8 @@ const AnimalSVG = () => {
                   style={
                     isCurled
                       ? { transform: "scaleY(0.15)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
+                      : isAlert
+                      ? { transform: "scaleY(1.15)", transformOrigin: "218px 108px", transition: "transform 0.4s ease" }
                       : isStanding
                       ? { transform: "scaleY(1)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
                       : undefined
@@ -355,12 +385,12 @@ const AnimalSVG = () => {
             </g>
 
             {/* Tail */}
-            <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+            <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : isAlert ? "al-tail" : ""} style={tailStyle}>
               <parts.Tail />
             </g>
 
             {/* Head */}
-            <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+            <g className={isAnimating ? "a-head" : isWalking ? "w-head" : isAlert ? "al-head" : ""} style={headStyle}>
               <parts.Head />
               <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
                 <parts.Eyes />
