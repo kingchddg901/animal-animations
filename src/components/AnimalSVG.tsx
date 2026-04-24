@@ -71,6 +71,17 @@ const animalColors: Record<AnimalType, Record<string, string>> = {
     "--animal-ear-inner": "145 45% 30%",
     "--animal-white-tip": "0 0% 95%",
   },
+  snake: {
+    "--animal-fur": "95 45% 32%",
+    "--animal-fur-shadow": "95 50% 18%",
+    "--animal-fur-highlight": "60 70% 55%",
+    "--animal-eye": "45 95% 55%",
+    "--animal-pupil": "0 0% 5%",
+    "--animal-nose": "0 0% 10%",
+    "--animal-whisker": "0 0% 30%",
+    "--animal-ear-inner": "95 40% 25%",
+    "--animal-white-tip": "60 50% 85%",
+  },
 };
 
 const animalLabels: Record<AnimalType, string> = {
