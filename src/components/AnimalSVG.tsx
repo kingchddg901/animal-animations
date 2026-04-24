@@ -178,6 +178,11 @@ const AnimalSVG = () => {
             .a-bl { animation: backLeftLegCurl 3s ease-in-out infinite alternate; transform-origin: 303px 198px; }
             .a-br { animation: backRightLegCurl 3s ease-in-out infinite alternate; transform-origin: 332px 195px; }
             .a-eyes { animation: eyeClose 3s ease-in-out infinite alternate; transform-origin: 145px 117px; }
+            /* Knees fold tightly as legs tuck under body */
+            .cat-fl-lower, .dog-fl-lower, .rac-fl-lower,
+            .cat-fr-lower, .dog-fr-lower, .rac-fr-lower,
+            .cat-bl-lower, .dog-bl-lower, .rac-bl-lower,
+            .cat-br-lower, .dog-br-lower, .rac-br-lower { animation: kneeFold 3s ease-in-out infinite alternate; }
             @keyframes headTuck { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(20px,10px) rotate(30deg); } }
             @keyframes bodyCompress { 0% { transform: rotate(0deg); } 100% { transform: rotate(15deg); } }
             @keyframes tailCurl { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(40deg) translate(-20px,10px); } }
@@ -187,6 +192,7 @@ const AnimalSVG = () => {
             @keyframes backLeftLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-3px,-6px) rotate(36deg) scaleY(0.88); } 100% { transform: translate(-8px,-18px) rotate(104deg) scaleY(0.38); } }
             @keyframes backRightLegCurl { 0% { transform: translate(0,0) rotate(0deg) scaleY(1); } 55% { transform: translate(-2px,-5px) rotate(34deg) scaleY(0.88); } 100% { transform: translate(-7px,-16px) rotate(100deg) scaleY(0.38); } }
             @keyframes eyeClose { 0% { transform:scaleY(1); } 75% { transform:scaleY(1); } 100% { transform:scaleY(0.15); } }
+            @keyframes kneeFold { 0% { transform: rotate(0deg); } 60% { transform: rotate(-40deg); } 100% { transform: rotate(-75deg); } }
           `}</style>
         )}
 
