@@ -213,11 +213,18 @@ const AnimalSVG = () => {
             .w-br { animation: wStepA 0.8s ease-in-out infinite; transform-origin: 325px 192px; }
             .w-tail { animation: wTailSway 0.8s ease-in-out infinite alternate; transform-origin: 340px 180px; }
             .w-head { animation: wHeadBob 0.8s ease-in-out infinite; transform-origin: 140px 160px; }
+            /* Knee/hock flex during step — applies to all quadruped lower-leg groups */
+            .cat-fl-lower, .dog-fl-lower, .rac-fl-lower,
+            .cat-br-lower, .dog-br-lower, .rac-br-lower { animation: kneeFlexA 0.8s ease-in-out infinite; }
+            .cat-fr-lower, .dog-fr-lower, .rac-fr-lower,
+            .cat-bl-lower, .dog-bl-lower, .rac-bl-lower { animation: kneeFlexB 0.8s ease-in-out infinite; }
             @keyframes wBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
             @keyframes wStepA { 0% { transform: rotate(-10deg); } 25% { transform: rotate(10deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-10deg); } 100% { transform: rotate(-10deg); } }
             @keyframes wStepB { 0% { transform: rotate(10deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } 100% { transform: rotate(10deg); } }
             @keyframes wTailSway { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
             @keyframes wHeadBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+            @keyframes kneeFlexA { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-22deg); } 50% { transform: rotate(0deg); } }
+            @keyframes kneeFlexB { 0%,100% { transform: rotate(0deg); } 75% { transform: rotate(-22deg); } }
           `}</style>
         )}
 
