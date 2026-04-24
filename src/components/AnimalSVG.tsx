@@ -3,8 +3,9 @@ import CatBody, { CatLegs, CatFrontRightLeg, CatBackLeftLeg, CatBackRightLeg, Ca
 import DogBody, { DogFrontLeftLeg, DogFrontRightLeg, DogBackLeftLeg, DogBackRightLeg, DogTail, DogHead, DogEyes, DogFace } from "./animals/DogPaths";
 import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeftLeg, RaccoonBackRightLeg, RaccoonTail, RaccoonHead, RaccoonEyes, RaccoonFace } from "./animals/RaccoonPaths";
 import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch, ParrotWingLeft, ParrotWingRight } from "./animals/ParrotPaths";
+import Snake from "./animals/SnakePaths";
 
-export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
+export type AnimalType = "cat" | "dog" | "raccoon" | "parrot" | "snake";
 type Pose = "animating" | "standing" | "curled" | "alert" | "walking";
 
 const animalParts: Record<AnimalType, {
