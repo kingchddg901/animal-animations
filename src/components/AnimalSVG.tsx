@@ -298,9 +298,23 @@ const AnimalSVG = () => {
         )}
 
         {/* Extra elements like perch */}
-        {parts.Extra && <parts.Extra />}
+        {parts?.Extra && <parts.Extra />}
 
-        {animal === "parrot" ? (
+        {animal === "snake" ? (
+          <Snake
+            mode={
+              isAnimating
+                ? "curling"
+                : isWalking
+                ? "moving"
+                : isAlert
+                ? "alert"
+                : isCurled
+                ? "resting"
+                : "standing"
+            }
+          />
+        ) : animal === "parrot" && parts ? (
           /* Parrot: legs anchored to perch, flight lifts whole bird */
           <g className={isWalking ? "f-whole" : ""}>
             {/* Legs — tuck during flight, stay fixed otherwise */}
