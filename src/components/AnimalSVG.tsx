@@ -5,7 +5,7 @@ import RaccoonBody, { RaccoonFrontLeftLeg, RaccoonFrontRightLeg, RaccoonBackLeft
 import ParrotBody, { ParrotFrontLeftLeg, ParrotFrontRightLeg, ParrotBackLeftLeg, ParrotBackRightLeg, ParrotTail, ParrotHead, ParrotEyes, ParrotFace, ParrotPerch, ParrotWingLeft, ParrotWingRight } from "./animals/ParrotPaths";
 
 export type AnimalType = "cat" | "dog" | "raccoon" | "parrot";
-type Pose = "animating" | "standing" | "curled" | "walking";
+type Pose = "animating" | "standing" | "curled" | "alert" | "walking";
 
 const animalParts: Record<AnimalType, {
   Body: React.FC;
@@ -84,15 +84,18 @@ const AnimalSVG = () => {
   const [pose, setPose] = useState<Pose>("animating");
 
   const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot"];
-  const poses: Pose[] = ["animating", "standing", "curled", "walking"];
+  const poses: Pose[] = ["animating", "standing", "curled", "alert", "walking"];
   const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
 
-  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", walking: animal === "parrot" ? "Flying" : "Walking" };
+  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", alert: "Alert", walking: animal === "parrot" ? "Flying" : "Walking" };
 
   const isAnimating = pose === "animating";
   const isCurled = pose === "curled";
+  const isAlert = pose === "alert";
   const isWalking = pose === "walking";
   const isStanding = pose === "standing";
+  // Alert shares the curled body/legs/tail but keeps head up and eyes open
+  const isTucked = isCurled || isAlert;
 
   const parts = animalParts[animal];
   const colors = animalColors[animal];
