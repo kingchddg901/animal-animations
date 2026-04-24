@@ -19,39 +19,51 @@ const CatPaths = () => (
 );
 
 export const CatLegs = () => (
-  <>
-    {/* Front left — upper segment angled back, knee bend, lower segment to paw */}
-    <path d="M162,198 C160,208 158,218 160,230 C162,236 166,238 168,236 C172,232 170,224 168,218 C166,212 166,206 168,200" fill="hsl(var(--animal-fur))" />
-    {/* Lower leg */}
-    <path d="M168,236 C166,245 164,258 164,268 C164,274 167,278 172,278" fill="hsl(var(--animal-fur))" />
-    <ellipse cx="172" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur))" />
-  </>
+  <g>
+    {/* Upper leg — thick stroke from hip to knee */}
+    <line x1="166" y1="200" x2="170" y2="236" stroke="hsl(var(--animal-fur))" strokeWidth="13" strokeLinecap="round" />
+    {/* Lower leg — knee to paw */}
+    <g className="cat-fl-lower" style={{ transformOrigin: "170px 236px" }}>
+      <line x1="170" y1="236" x2="172" y2="275" stroke="hsl(var(--animal-fur))" strokeWidth="11" strokeLinecap="round" />
+      <ellipse cx="172" cy="278" rx="10" ry="4.5" fill="hsl(var(--animal-fur))" />
+    </g>
+    {/* Knee highlight */}
+    <circle cx="170" cy="236" r="6" fill="hsl(var(--animal-fur))" />
+  </g>
 );
 
 export const CatFrontRightLeg = () => (
-  <>
-    <path d="M190,198 C188,208 186,218 188,230 C190,236 194,238 196,236 C200,232 198,224 196,218 C194,212 194,206 196,200" fill="hsl(var(--animal-fur-shadow))" />
-    <path d="M196,236 C194,245 192,258 192,268 C192,274 195,278 200,278" fill="hsl(var(--animal-fur-shadow))" />
-    <ellipse cx="200" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur-shadow))" />
-  </>
+  <g>
+    <line x1="194" y1="200" x2="198" y2="236" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="13" strokeLinecap="round" />
+    <g className="cat-fr-lower" style={{ transformOrigin: "198px 236px" }}>
+      <line x1="198" y1="236" x2="200" y2="275" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="11" strokeLinecap="round" />
+      <ellipse cx="200" cy="278" rx="10" ry="4.5" fill="hsl(var(--animal-fur-shadow))" />
+    </g>
+    <circle cx="198" cy="236" r="6" fill="hsl(var(--animal-fur-shadow))" />
+  </g>
 );
 
 export const CatBackLeftLeg = () => (
-  <>
-    {/* Back left — haunches angle forward to hock, then back down */}
-    <path d="M300,195 C296,205 292,215 294,228 C296,234 300,236 303,234 C306,230 305,222 303,215 C301,208 300,202 302,198" fill="hsl(var(--animal-fur))" />
-    {/* Lower leg from hock */}
-    <path d="M303,234 C302,245 302,258 303,268 C304,274 307,278 312,278" fill="hsl(var(--animal-fur))" />
-    <ellipse cx="312" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur))" />
-  </>
+  <g>
+    {/* Haunch — wider at top */}
+    <path d="M295,195 C290,205 290,220 298,235 L308,235 C310,220 308,205 305,195 Z" fill="hsl(var(--animal-fur))" />
+    <g className="cat-bl-lower" style={{ transformOrigin: "303px 234px" }}>
+      <line x1="303" y1="234" x2="312" y2="275" stroke="hsl(var(--animal-fur))" strokeWidth="11" strokeLinecap="round" />
+      <ellipse cx="312" cy="278" rx="10" ry="4.5" fill="hsl(var(--animal-fur))" />
+    </g>
+    <circle cx="303" cy="234" r="6.5" fill="hsl(var(--animal-fur))" />
+  </g>
 );
 
 export const CatBackRightLeg = () => (
-  <>
-    <path d="M325,192 C322,202 320,212 322,225 C324,232 328,234 330,232 C333,228 332,220 330,213 C328,206 328,200 330,195" fill="hsl(var(--animal-fur-shadow))" />
-    <path d="M330,232 C329,243 329,256 330,268 C331,274 334,278 339,278" fill="hsl(var(--animal-fur-shadow))" />
-    <ellipse cx="339" cy="277" rx="10" ry="4" fill="hsl(var(--animal-fur-shadow))" />
-  </>
+  <g>
+    <path d="M322,192 C318,202 318,217 326,233 L336,233 C338,217 336,202 332,192 Z" fill="hsl(var(--animal-fur-shadow))" />
+    <g className="cat-br-lower" style={{ transformOrigin: "330px 232px" }}>
+      <line x1="330" y1="232" x2="339" y2="275" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="11" strokeLinecap="round" />
+      <ellipse cx="339" cy="278" rx="10" ry="4.5" fill="hsl(var(--animal-fur-shadow))" />
+    </g>
+    <circle cx="330" cy="232" r="6.5" fill="hsl(var(--animal-fur-shadow))" />
+  </g>
 );
 
 export const CatTail = () => (
