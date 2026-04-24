@@ -259,6 +259,25 @@ const AnimalSVG = () => {
           `}</style>
         )}
 
+        {/* Alert pose: tucked but watchful — head scans, ears/tail twitch */}
+        {isAlert && animal !== "parrot" && (
+          <style>{`
+            .al-head { animation: alHeadScan 2.4s ease-in-out infinite; transform-origin: 140px 140px; }
+            .al-tail { animation: alTailFlick 1.6s ease-in-out infinite; transform-origin: 340px 180px; }
+            @keyframes alHeadScan { 0%,100% { transform: translate(0,0) rotate(-6deg); } 50% { transform: translate(2px,-1px) rotate(6deg); } }
+            @keyframes alTailFlick { 0%,70%,100% { transform: rotate(40deg) translate(-20px,10px); } 80% { transform: rotate(55deg) translate(-22px,8px); } 90% { transform: rotate(30deg) translate(-18px,12px); } }
+          `}</style>
+        )}
+
+        {isAlert && animal === "parrot" && (
+          <style>{`
+            .al-p-head { animation: alPHeadScan 2.4s ease-in-out infinite; transform-origin: 220px 140px; }
+            .al-p-body { animation: alPBodyShift 3s ease-in-out infinite alternate; transform-origin: 258px 244px; }
+            @keyframes alPHeadScan { 0%,100% { transform: translate(0,0) rotate(-8deg); } 50% { transform: translate(3px,-2px) rotate(10deg); } }
+            @keyframes alPBodyShift { 0% { transform: rotate(0deg) scaleX(1.05); } 100% { transform: rotate(2deg) scaleX(1.06); } }
+          `}</style>
+        )}
+
         {/* Extra elements like perch */}
         {parts.Extra && <parts.Extra />}
 
