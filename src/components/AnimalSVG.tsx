@@ -292,10 +292,12 @@ const AnimalSVG = () => {
 
             {/* Body */}
             <g
-              className={isAnimating ? "p-body" : isWalking ? "f-body" : ""}
+              className={isAnimating ? "p-body" : isWalking ? "f-body" : isAlert ? "al-p-body" : ""}
               style={
                 isCurled
                   ? { transform: "rotate(5deg) scaleX(1.05)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
+                  : isAlert
+                  ? { transform: "rotate(0deg) scaleX(1.05)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : isStanding
                   ? { transform: "rotate(0deg) scaleX(1)", transformOrigin: "258px 244px", transition: "transform 1s ease" }
                   : undefined
@@ -317,6 +319,8 @@ const AnimalSVG = () => {
                 style={
                   isCurled
                     ? { transform: "rotate(10deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
+                    : isAlert
+                    ? { transform: "rotate(8deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
                     : isStanding
                     ? { transform: "rotate(0deg)", transformOrigin: "320px 225px", transition: "transform 1s ease" }
                     : undefined
@@ -327,11 +331,11 @@ const AnimalSVG = () => {
 
               {/* Head */}
               <g
-                className={isAnimating ? "p-head" : isWalking ? "f-head" : ""}
+                className={isAnimating ? "p-head" : isWalking ? "f-head" : isAlert ? "al-p-head" : ""}
                 style={
                   isCurled
                     ? { transform: "translate(15px,12px) rotate(-25deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
-                    : isStanding
+                    : (isStanding || isAlert)
                     ? { transform: "translate(0,0) rotate(0deg)", transformOrigin: "220px 140px", transition: "transform 1s ease" }
                     : undefined
                 }
@@ -342,6 +346,8 @@ const AnimalSVG = () => {
                   style={
                     isCurled
                       ? { transform: "scaleY(0.15)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
+                      : isAlert
+                      ? { transform: "scaleY(1.15)", transformOrigin: "218px 108px", transition: "transform 0.4s ease" }
                       : isStanding
                       ? { transform: "scaleY(1)", transformOrigin: "218px 108px", transition: "transform 0.8s ease" }
                       : undefined
