@@ -8,7 +8,7 @@ import Snake from "./animals/SnakePaths";
 export type AnimalType = "cat" | "dog" | "raccoon" | "parrot" | "snake";
 type Pose = "animating" | "standing" | "curled" | "alert" | "walking";
 
-const animalParts: Record<AnimalType, {
+const animalParts: Partial<Record<AnimalType, {
   Body: React.FC;
   FrontLeftLeg: React.FC;
   FrontRightLeg: React.FC;
@@ -19,7 +19,7 @@ const animalParts: Record<AnimalType, {
   Eyes: React.FC;
   Face: React.FC;
   Extra?: React.FC;
-}> = {
+}>> = {
   cat: { Body: CatBody, FrontLeftLeg: CatLegs, FrontRightLeg: CatFrontRightLeg, BackLeftLeg: CatBackLeftLeg, BackRightLeg: CatBackRightLeg, Tail: CatTail, Head: CatHead, Eyes: CatEyes, Face: CatFace },
   dog: { Body: DogBody, FrontLeftLeg: DogFrontLeftLeg, FrontRightLeg: DogFrontRightLeg, BackLeftLeg: DogBackLeftLeg, BackRightLeg: DogBackRightLeg, Tail: DogTail, Head: DogHead, Eyes: DogEyes, Face: DogFace },
   raccoon: { Body: RaccoonBody, FrontLeftLeg: RaccoonFrontLeftLeg, FrontRightLeg: RaccoonFrontRightLeg, BackLeftLeg: RaccoonBackLeftLeg, BackRightLeg: RaccoonBackRightLeg, Tail: RaccoonTail, Head: RaccoonHead, Eyes: RaccoonEyes, Face: RaccoonFace },
