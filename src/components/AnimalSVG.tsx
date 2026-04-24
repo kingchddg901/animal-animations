@@ -379,12 +379,12 @@ const AnimalSVG = () => {
             </g>
 
             {/* Tail */}
-            <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : ""} style={tailStyle}>
+            <g className={isAnimating ? "a-tail" : isWalking ? "w-tail" : isAlert ? "al-tail" : ""} style={tailStyle}>
               <parts.Tail />
             </g>
 
             {/* Head */}
-            <g className={isAnimating ? "a-head" : isWalking ? "w-head" : ""} style={headStyle}>
+            <g className={isAnimating ? "a-head" : isWalking ? "w-head" : isAlert ? "al-head" : ""} style={headStyle}>
               <parts.Head />
               <g className={isAnimating ? "a-eyes" : ""} style={eyesStyle}>
                 <parts.Eyes />
