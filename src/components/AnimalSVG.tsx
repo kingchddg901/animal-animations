@@ -100,7 +100,13 @@ const AnimalSVG = () => {
   const poses: Pose[] = ["animating", "standing", "curled", "alert", "walking"];
   const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
 
-  const poseLabels: Record<Pose, string> = { animating: "Curling", standing: "Standing", curled: "Sleeping", alert: "Alert", walking: animal === "parrot" ? "Flying" : "Walking" };
+  const poseLabels: Record<Pose, string> = {
+    animating: "Curling",
+    standing: "Standing",
+    curled: animal === "snake" ? "Resting" : "Sleeping",
+    alert: "Alert",
+    walking: animal === "parrot" ? "Flying" : animal === "snake" ? "Slithering" : "Walking",
+  };
 
   const isAnimating = pose === "animating";
   const isCurled = pose === "curled";
