@@ -166,27 +166,36 @@ const Snake = ({ mode }: SnakeProps) => {
   const tailPt = pts[pts.length - 1];
 
   // === HEAD PLACEMENT =========================================================
-  let headAngleDeg: number;
-  let renderHeadX: number;
-  let renderHeadY: number;
+  // Head is ALWAYS welded to pts[0] so it can never visually detach from the
+  // body. Mode-specific pose adjustments are applied as an additional rotation
+  // around the neck joint, plus a small lift offset along the head's local
+  // axis for reared poses.
+  const neckX = pts[0][0];
+  const neckY = pts[0][1];
+  const bodyTangentDeg = computeHeadAngleDeg(pts);
 
-  if (showCoiled || showWarning) {
-    renderHeadX = HEAD_X;
-    if (mode === "alert") {
-      renderHeadY = HEAD_Y - 55; headAngleDeg = -70;
-    } else if (mode === "resting") {
-      renderHeadY = HEAD_Y - 10; headAngleDeg = 20;
-    } else if (mode === "warning") {
-      // Head pulled back and up into an S-curve strike pose
-      renderHeadY = HEAD_Y - 70; headAngleDeg = -55;
-    } else {
-      renderHeadY = HEAD_Y - 20; headAngleDeg = -20;
-    }
-  } else {
-    renderHeadX = pts[0][0];
-    renderHeadY = pts[0][1];
-    headAngleDeg = computeHeadAngleDeg(pts);
+  // Head points OPPOSITE the body tangent (tangent points body-ward from head)
+  let headAngleDeg = bodyTangentDeg + 180;
+  let liftAlongHead = 0; // negative = forward along snout direction
+
+  if (mode === "alert") {
+    headAngleDeg = -70;       // reared up high
+    liftAlongHead = -28;      // extend snout up away from neck
+  } else if (mode === "resting") {
+    headAngleDeg = 35;        // drooped down onto coils
+    liftAlongHead = -4;
+  } else if (mode === "warning") {
+    headAngleDeg = -55;       // S-curve strike pose
+    liftAlongHead = -32;
+  } else if (mode === "standing") {
+    headAngleDeg = -25;
+    liftAlongHead = -18;
   }
+
+  // Apply lift along the head's facing direction so the neck stays welded
+  const rad = (headAngleDeg * Math.PI) / 180;
+  const renderHeadX = neckX + Math.cos(rad) * liftAlongHead;
+  const renderHeadY = neckY + Math.sin(rad) * liftAlongHead;
 
   const showTongue = mode === "alert" || mode === "moving" || mode === "curling" || mode === "warning";
 
