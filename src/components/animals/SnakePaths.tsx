@@ -174,8 +174,11 @@ const Snake = ({ mode }: SnakeProps) => {
   const neckY = pts[0][1];
   const bodyTangentDeg = computeHeadAngleDeg(pts);
 
-  // Head points OPPOSITE the body tangent (tangent points body-ward from head)
-  let headAngleDeg = bodyTangentDeg + 180;
+  // Head sprite has snout at -X (rotation 0 → snout points left).
+  // Body tangent at pts[0] points INTO the body (away from snout), which is
+  // exactly the direction we want rotation 0 to face when body extends to the
+  // right. So no flip is needed for the moving/curling default.
+  let headAngleDeg = bodyTangentDeg;
   let liftAlongHead = 0; // negative = forward along snout direction
 
   if (mode === "alert") {
