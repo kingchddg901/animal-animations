@@ -153,12 +153,28 @@ const Snake = ({ mode }: SnakeProps) => {
   // === BODY POINTS ============================================================
   const showCoiled  = mode === "alert" || mode === "resting" || mode === "standing";
   const showWarning = mode === "warning";
+  const showCurling = mode === "curling";
 
-  const pts = showWarning
-    ? buildWarningCoilPoints()
-    : showCoiled
-    ? buildCoilPoints()
-    : buildMovingPoints(t);
+  let pts: Array<[number, number]>;
+  if (showWarning) {
+    pts = buildWarningCoilPoints();
+  } else if (showCoiled) {
+    pts = buildCoilPoints();
+  } else if (showCurling) {
+    // Transition stretched → coiled over ~1.2s, then hold coiled
+    const CURL_DURATION = 1.2;
+    const raw = Math.min(1, t / CURL_DURATION);
+    // ease in-out
+    const k = raw < 0.5 ? 2 * raw * raw : 1 - Math.pow(-2 * raw + 2, 2) / 2;
+    const stretched = buildMovingPoints(t);
+    const coiled = buildCoilPoints();
+    pts = stretched.map(([sx, sy], i) => {
+      const [cx, cy] = coiled[i];
+      return [sx + (cx - sx) * k, sy + (cy - sy) * k];
+    });
+  } else {
+    pts = buildMovingPoints(t);
+  }
 
   const pathD = pointsToPath(pts);
 
@@ -174,8 +190,11 @@ const Snake = ({ mode }: SnakeProps) => {
   const neckY = pts[0][1];
   const bodyTangentDeg = computeHeadAngleDeg(pts);
 
-  // Head points OPPOSITE the body tangent (tangent points body-ward from head)
-  let headAngleDeg = bodyTangentDeg + 180;
+  // Head sprite has snout at -X (rotation 0 → snout points left).
+  // Body tangent at pts[0] points INTO the body (away from snout), which is
+  // exactly the direction we want rotation 0 to face when body extends to the
+  // right. So no flip is needed for the moving/curling default.
+  let headAngleDeg = bodyTangentDeg;
   let liftAlongHead = 0; // negative = forward along snout direction
 
   if (mode === "alert") {
