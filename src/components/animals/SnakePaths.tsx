@@ -205,7 +205,7 @@ const Snake = ({ mode }: SnakeProps) => {
       {/* Warning keyframes — rattle shake + head S-curve sway */}
       {showWarning && (
         <style>{`
-          .sn-warn-head { animation: snWarnHeadSway 0.35s ease-in-out infinite alternate; transform-origin: ${HEAD_X}px ${HEAD_Y - 70}px; }
+          .sn-warn-head { animation: snWarnHeadSway 0.35s ease-in-out infinite alternate; transform-origin: ${renderHeadX}px ${renderHeadY}px; }
           .sn-rattle    { animation: snRattleShake 0.08s linear infinite alternate; transform-origin: ${tailPt[0]}px ${tailPt[1]}px; }
           @keyframes snWarnHeadSway  { 0% { transform: rotate(-8deg); } 100% { transform: rotate(8deg); } }
           @keyframes snRattleShake   { 0% { transform: translateX(-3px) rotate(-5deg); } 100% { transform: translateX(3px) rotate(5deg); } }
