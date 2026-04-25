@@ -197,24 +197,31 @@ const Snake = ({ mode }: SnakeProps) => {
   let headAngleDeg = bodyTangentDeg;
   let liftAlongHead = 0; // negative = forward along snout direction
 
+  // Head sprite has snout at LOCAL -X. After rotating by headAngleDeg, the
+  // snout points in world direction (-cos, -sin). To rear the head UP, we
+  // need that snout direction to have a NEGATIVE y component.
+  //   straight up   → headAngleDeg ≈  90°  (snoutDir = (0, -1))
+  //   forward-left  → headAngleDeg ≈   0°  (snoutDir = (-1, 0))
+  //   down-left     → headAngleDeg ≈ -90°
   if (mode === "alert") {
-    headAngleDeg = -70;       // reared up high
-    liftAlongHead = -28;      // extend snout up away from neck
+    headAngleDeg = 75;        // reared up high
+    liftAlongHead = 30;
   } else if (mode === "resting") {
-    headAngleDeg = 35;        // drooped down onto coils
-    liftAlongHead = -4;
+    headAngleDeg = -20;       // drooped down onto coils
+    liftAlongHead = 6;
   } else if (mode === "warning") {
-    headAngleDeg = -55;       // S-curve strike pose
-    liftAlongHead = -32;
+    headAngleDeg = 100;       // S-curve strike pose, head pulled back & up
+    liftAlongHead = 34;
   } else if (mode === "standing") {
-    headAngleDeg = -25;
-    liftAlongHead = -18;
+    headAngleDeg = 30;
+    liftAlongHead = 20;
   }
 
-  // Apply lift along the head's facing direction so the neck stays welded
+  // Snout local direction is (-1, 0); world snout dir = (-cos, -sin).
+  // Place head body so the snout extends away from the neck along that dir.
   const rad = (headAngleDeg * Math.PI) / 180;
-  const renderHeadX = neckX + Math.cos(rad) * liftAlongHead;
-  const renderHeadY = neckY + Math.sin(rad) * liftAlongHead;
+  const renderHeadX = neckX - Math.cos(rad) * liftAlongHead;
+  const renderHeadY = neckY - Math.sin(rad) * liftAlongHead;
 
   const showTongue = mode === "alert" || mode === "moving" || mode === "curling" || mode === "warning";
 
