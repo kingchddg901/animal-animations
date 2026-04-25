@@ -1,4 +1,24 @@
-/** Golden retriever-style dog — same coordinate space as the cat */
+/**
+ * DogPaths.tsx
+ * =============================================================================
+ * Golden retriever-style dog — same coordinate space as the cat.
+ *
+ * === EXPORTS ===
+ *  default  DogBody
+ *  named    DogFrontLeftLeg, DogFrontRightLeg, DogBackLeftLeg, DogBackRightLeg
+ *  named    DogTail
+ *  named    DogHead
+ *  named    DogEyes
+ *  named    DogFace
+ *  named    DogWarning  — hackles raised along spine, rigid low tail, snarl.
+ *                         AnimalSVG renders this as an additive layer when
+ *                         pose === "warning", with the body weight-forward
+ *                         transform already applied to the parent <g>.
+ * =============================================================================
+ */
+
+/* === BODY === */
+
 const DogBody = () => (
   <>
     {/* Torso — broader, deeper chest */}
@@ -21,6 +41,8 @@ const DogBody = () => (
     />
   </>
 );
+
+/* === LEGS === */
 
 export const DogFrontLeftLeg = () => (
   <g>
@@ -46,7 +68,6 @@ export const DogFrontRightLeg = () => (
 
 export const DogBackLeftLeg = () => (
   <g>
-    {/* Haunch — meatier muscle mass */}
     <path d="M292,202 C286,214 286,232 296,244 L308,244 C312,230 310,212 305,202 Z" fill="hsl(var(--animal-fur))" />
     <g className="dog-bl-lower" style={{ transformOrigin: "301px 244px" }}>
       <line x1="301" y1="244" x2="310" y2="277" stroke="hsl(var(--animal-fur))" strokeWidth="13" strokeLinecap="round" />
@@ -67,19 +88,21 @@ export const DogBackRightLeg = () => (
   </g>
 );
 
+/* === TAIL === */
+
 export const DogTail = () => (
   <>
-    {/* Upward-curving fluffy tail */}
     <path d="M355,165 C365,148 372,125 370,105 C368,90 362,82 358,85 C355,90 358,108 360,125" stroke="hsl(var(--animal-fur))" strokeWidth="10" fill="none" strokeLinecap="round" />
     <path d="M370,105 C368,90 362,82 358,85" stroke="hsl(var(--animal-fur-highlight))" strokeWidth="10" fill="none" strokeLinecap="round" />
   </>
 );
 
+/* === HEAD === */
+
 export const DogHead = () => (
   <>
-    {/* Rounder, broader head */}
     <path d="M100,140 C95,120 100,98 115,88 C126,82 140,78 154,80 C168,82 178,90 184,104 C190,118 188,138 180,148 C172,158 160,162 148,164 C135,165 120,162 112,155 C106,150 102,146 100,140 Z" fill="hsl(var(--animal-fur))" />
-    {/* Muzzle — longer, rounded snout */}
+    {/* Muzzle */}
     <path d="M105,138 C98,142 92,148 90,155 C88,162 92,168 100,168 C108,168 115,164 120,158 C124,152 122,145 116,140" fill="hsl(var(--animal-fur-highlight))" />
     {/* Floppy ears */}
     <path d="M112,98 C105,92 95,88 88,92 C82,96 80,108 82,122 C84,132 90,138 96,135 C102,130 108,115 112,102" fill="hsl(var(--animal-fur-shadow))" />
@@ -87,9 +110,10 @@ export const DogHead = () => (
   </>
 );
 
+/* === EYES === */
+
 export const DogEyes = () => (
   <>
-    {/* Rounder, friendlier eyes */}
     <ellipse cx="128" cy="118" rx="7" ry="7.5" fill="hsl(var(--animal-eye))" />
     <ellipse cx="128" cy="118" rx="3.5" ry="4.5" fill="hsl(var(--animal-pupil))" />
     <circle cx="131" cy="116" r="2" fill="hsl(var(--animal-white-tip))" opacity="0.85" />
@@ -99,16 +123,60 @@ export const DogEyes = () => (
   </>
 );
 
+/* === FACE === */
+
 export const DogFace = () => (
   <>
-    {/* Nose — larger, rounded */}
     <ellipse cx="105" cy="155" rx="6" ry="4.5" fill="hsl(var(--animal-nose))" />
-    {/* Mouth */}
     <path d="M105,159 C105,163 100,166 96,166" stroke="hsl(var(--animal-whisker))" strokeWidth="0.8" fill="none" />
     <path d="M105,159 C105,163 110,166 114,166" stroke="hsl(var(--animal-whisker))" strokeWidth="0.8" fill="none" />
-    {/* Tongue peeking */}
     <path d="M104,163 C103,168 106,170 108,168 C110,166 108,163 106,163" fill="hsl(0 65% 55%)" opacity="0.7" />
   </>
+);
+
+/* === WARNING OVERLAY ========================================================
+ * Hackles up + snarl threat display:
+ *   - Prominent hackle ridge: a row of spiky upward quills from neck to tail
+ *     base, wider and more exaggerated than the cat's since dog fur is longer
+ *   - Rigid low tail: drawn as a near-horizontal stiff line (AnimalSVG
+ *     applies a tailStyle transform bringing the tail low)
+ *   - Snarl: lifted lip exposing front teeth, wrinkled nose bridge
+ *   - Hard stare: brow furrow + whites showing
+ * =========================================================================== */
+
+export const DogWarning = () => (
+  <g>
+    {/* Hackle ridge — longer quills, thicker base, from neck to rump */}
+    <line x1="148" y1="150" x2="140" y2="128" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="162" y1="140" x2="156" y2="117" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="180" y1="132" x2="176" y2="108" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="200" y1="127" x2="198" y2="103" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="222" y1="124" x2="221" y2="100" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="245" y1="123" x2="245" y2="99" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="268" y1="124" x2="269" y2="100" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="290" y1="127" x2="293" y2="103" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="311" y1="132" x2="316" y2="109" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="330" y1="140" x2="337" y2="119" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="345" y1="152" x2="354" y2="133" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+
+    {/* Brow furrow — V-shaped crease between the eyes */}
+    <path d="M122,108 C126,103 132,101 138,103" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.8" />
+    <path d="M154,103 C160,101 166,103 170,108" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.8" />
+
+    {/* Hard stare — whites visible at inner corners */}
+    <ellipse cx="119" cy="119" rx="3" ry="2.5" fill="hsl(var(--animal-white-tip))" opacity="0.7" />
+    <ellipse cx="165" cy="119" rx="3" ry="2.5" fill="hsl(var(--animal-white-tip))" opacity="0.7" />
+
+    {/* Snarl — lip lifted on one side exposing teeth */}
+    <path d="M88,152 C90,148 96,146 104,148" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="2" fill="none" strokeLinecap="round" />
+    {/* Front teeth showing */}
+    <rect x="91" y="154" width="4" height="6" rx="1" fill="hsl(var(--animal-white-tip))" opacity="0.9" />
+    <rect x="96" y="154" width="4" height="7" rx="1" fill="hsl(var(--animal-white-tip))" opacity="0.9" />
+    <rect x="101" y="154" width="4" height="6" rx="1" fill="hsl(var(--animal-white-tip))" opacity="0.9" />
+    {/* Nose wrinkle lines */}
+    <path d="M96,142 C96,146 97,149 99,151" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.6" />
+    <path d="M103,141 C103,145 103,148 103,151" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.6" />
+  </g>
 );
 
 export default DogBody;

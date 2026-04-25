@@ -1,6 +1,30 @@
+/**
+ * CatPaths.tsx
+ * =============================================================================
+ * Black cat — all body parts as individual named exports so AnimalSVG.tsx can
+ * layer them independently for each pose.
+ *
+ * === EXPORTS ===
+ *  default  CatBody          — torso + neck
+ *  named    CatLegs          — front-left leg (used as "FrontLeftLeg" in map)
+ *  named    CatFrontRightLeg
+ *  named    CatBackLeftLeg
+ *  named    CatBackRightLeg
+ *  named    CatTail
+ *  named    CatHead          — head shape + ears
+ *  named    CatEyes
+ *  named    CatFace          — nose, mouth, whiskers
+ *  named    CatWarning       — Halloween arch overlay: arched spine ridge,
+ *                              bottle-brush tail bristles, flattened ear tips.
+ *                              Rendered as an additive layer on top of the
+ *                              normal parts when pose === "warning".
+ * =============================================================================
+ */
+
+/* === BODY === */
+
 const CatPaths = () => (
   <>
-    {/* === BODY === */}
     <path
       d="M145,160 C155,145 180,135 210,132 C240,130 280,130 310,135 C330,138 345,148 348,162 C350,175 345,190 335,198 C320,208 290,212 260,212 C230,212 190,210 170,205 C155,200 142,185 145,160 Z"
       fill="hsl(var(--animal-fur))"
@@ -18,16 +42,15 @@ const CatPaths = () => (
   </>
 );
 
+/* === LEGS === */
+
 export const CatLegs = () => (
   <g>
-    {/* Upper leg — thick stroke from hip to knee */}
     <line x1="166" y1="200" x2="170" y2="236" stroke="hsl(var(--animal-fur))" strokeWidth="13" strokeLinecap="round" />
-    {/* Lower leg — knee to paw */}
     <g className="cat-fl-lower" style={{ transformOrigin: "170px 236px" }}>
       <line x1="170" y1="236" x2="172" y2="275" stroke="hsl(var(--animal-fur))" strokeWidth="11" strokeLinecap="round" />
       <ellipse cx="172" cy="278" rx="10" ry="4.5" fill="hsl(var(--animal-fur))" />
     </g>
-    {/* Knee highlight */}
     <circle cx="170" cy="236" r="6" fill="hsl(var(--animal-fur))" />
   </g>
 );
@@ -45,7 +68,6 @@ export const CatFrontRightLeg = () => (
 
 export const CatBackLeftLeg = () => (
   <g>
-    {/* Haunch — wider at top */}
     <path d="M295,195 C290,205 290,220 298,235 L308,235 C310,220 308,205 305,195 Z" fill="hsl(var(--animal-fur))" />
     <g className="cat-bl-lower" style={{ transformOrigin: "303px 234px" }}>
       <line x1="303" y1="234" x2="312" y2="275" stroke="hsl(var(--animal-fur))" strokeWidth="11" strokeLinecap="round" />
@@ -66,12 +88,16 @@ export const CatBackRightLeg = () => (
   </g>
 );
 
+/* === TAIL === */
+
 export const CatTail = () => (
   <>
     <path d="M345,170 C355,160 368,140 375,118 C380,100 378,82 372,75 C368,70 364,72 363,78 C362,85 365,98 366,108" stroke="hsl(var(--animal-fur))" strokeWidth="8" fill="none" strokeLinecap="round" />
     <path d="M372,75 C368,70 364,72 363,78" stroke="hsl(var(--animal-white-tip))" strokeWidth="8" fill="none" strokeLinecap="round" />
   </>
 );
+
+/* === HEAD === */
 
 export const CatHead = () => (
   <>
@@ -88,6 +114,8 @@ export const CatHead = () => (
   </>
 );
 
+/* === EYES === */
+
 export const CatEyes = () => (
   <>
     <path d="M124,117 C128,110 138,110 142,117 C138,124 128,124 124,117 Z" fill="hsl(var(--animal-eye))" />
@@ -101,6 +129,8 @@ export const CatEyes = () => (
   </>
 );
 
+/* === FACE === */
+
 export const CatFace = () => (
   <>
     <path d="M144,131 L141,135 L147,135 Z" fill="hsl(var(--animal-nose))" />
@@ -113,6 +143,58 @@ export const CatFace = () => (
     <line x1="170" y1="131" x2="204" y2="131" stroke="hsl(var(--animal-whisker))" strokeWidth="0.7" opacity="0.6" />
     <line x1="170" y1="135" x2="200" y2="141" stroke="hsl(var(--animal-whisker))" strokeWidth="0.7" opacity="0.6" />
   </>
+);
+
+/* === WARNING OVERLAY ========================================================
+ * Additive layer rendered on top of all normal parts when pose === "warning".
+ * Draws the classic Halloween threat display:
+ *   - Arched spine: body rotates up, spiky hackle ridge along the dorsal line
+ *   - Bottle-brush tail: wide bristle fringe around the tail path
+ *   - Ear flattening: dark wedge over each ear tip to make them look pressed back
+ *   - Wide eyes: extra-dilated pupils (circles, not slits)
+ *   - Open hissing mouth
+ * AnimalSVG applies a body arch transform (rotate -25 deg around chest) and
+ * tail-vertical transform before rendering this layer.
+ * =========================================================================== */
+
+export const CatWarning = () => (
+  <g>
+    {/* Spiky hackle ridge along the arched spine — short quills radiating up */}
+    <line x1="155" y1="152" x2="150" y2="134" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="170" y1="142" x2="166" y2="123" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="188" y1="135" x2="185" y2="116" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="208" y1="131" x2="206" y2="112" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="230" y1="130" x2="229" y2="111" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="252" y1="130" x2="252" y2="111" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="274" y1="131" x2="275" y2="112" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="295" y1="133" x2="298" y2="115" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="314" y1="138" x2="319" y2="120" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="330" y1="147" x2="337" y2="131" stroke="hsl(var(--animal-fur))" strokeWidth="2.5" strokeLinecap="round" />
+
+    {/* Bottle-brush tail bristles — short lines perpendicular to the tail stroke */}
+    <line x1="349" y1="162" x2="358" y2="153" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="358" y1="150" x2="368" y2="141" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="365" y1="136" x2="376" y2="128" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="370" y1="120" x2="382" y2="113" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="374" y1="104" x2="386" y2="99" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="349" y1="162" x2="340" y2="152" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="358" y1="150" x2="349" y2="140" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="365" y1="136" x2="355" y2="127" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="370" y1="120" x2="360" y2="112" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+
+    {/* Ear press-back — dark wedge layered over the ear tips */}
+    <path d="M107,53 C106,45 109,41 114,45 C117,48 119,54 118,62 Z" fill="hsl(var(--animal-fur-shadow))" opacity="0.7" />
+    <path d="M181,53 C182,45 179,41 174,45 C171,48 170,54 171,62 Z" fill="hsl(var(--animal-fur-shadow))" opacity="0.7" />
+
+    {/* Wide dilated warning eyes — round pupils instead of slit */}
+    <circle cx="133" cy="117" r="5" fill="hsl(var(--animal-pupil))" />
+    <circle cx="157" cy="117" r="5" fill="hsl(var(--animal-pupil))" />
+
+    {/* Open hissing mouth */}
+    <path d="M138,138 C140,142 144,145 148,142 C144,140 140,140 138,138 Z" fill="hsl(0 0% 5%)" opacity="0.8" />
+    <path d="M141,137 C141,140 143,142 145,141" stroke="hsl(var(--animal-white-tip))" strokeWidth="1" fill="none" opacity="0.6" />
+    <path d="M147,141 C149,142 151,140 151,137" stroke="hsl(var(--animal-white-tip))" strokeWidth="1" fill="none" opacity="0.6" />
+  </g>
 );
 
 export default CatPaths;

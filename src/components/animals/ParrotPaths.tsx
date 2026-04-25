@@ -1,7 +1,29 @@
-/** Parrot — perched, side profile, same coordinate space */
+/**
+ * ParrotPaths.tsx
+ * =============================================================================
+ * Parrot — perched, side profile, same coordinate space.
+ *
+ * === EXPORTS ===
+ *  default  ParrotBody
+ *  named    ParrotFrontLeftLeg, ParrotFrontRightLeg,
+ *           ParrotBackLeftLeg, ParrotBackRightLeg
+ *  named    ParrotTail
+ *  named    ParrotHead
+ *  named    ParrotEyes
+ *  named    ParrotFace
+ *  named    ParrotPerch
+ *  named    ParrotWingLeft, ParrotWingRight  — flight only
+ *  named    ParrotWarning — maximum puff + raised crest + dropped wings +
+ *                           open beak. Rendered as additive layer by AnimalSVG
+ *                           when pose === "warning".
+ * =============================================================================
+ */
+
+/* === BODY === */
+
 const ParrotBody = () => (
   <>
-    {/* Plump body — green/teal */}
+    {/* Plump body */}
     <path
       d="M200,130 C220,118 260,115 290,120
          C315,125 335,140 340,165
@@ -25,11 +47,11 @@ const ParrotBody = () => (
   </>
 );
 
+/* === LEGS === */
+
 export const ParrotFrontLeftLeg = () => (
   <>
-    {/* Short legs with gripping feet */}
     <path d="M240,244 C238,255 237,265 238,272 C239,276 242,278 245,278" stroke="hsl(var(--animal-whisker))" strokeWidth="3" fill="none" strokeLinecap="round" />
-    {/* Talons */}
     <path d="M245,278 C248,280 250,278 248,275" stroke="hsl(var(--animal-whisker))" strokeWidth="2" fill="none" />
     <path d="M245,278 C243,280 240,279 241,276" stroke="hsl(var(--animal-whisker))" strokeWidth="2" fill="none" />
     <path d="M245,278 C246,281 244,283 242,281" stroke="hsl(var(--animal-whisker))" strokeWidth="2" fill="none" />
@@ -48,27 +70,30 @@ export const ParrotFrontRightLeg = () => (
 export const ParrotBackLeftLeg = () => <></>;
 export const ParrotBackRightLeg = () => <></>;
 
+/* === TAIL === */
+
 export const ParrotTail = () => (
   <>
-    {/* Long tail feathers */}
     <path d="M320,225 C335,240 350,268 355,295 C358,310 355,320 350,318 C345,315 340,300 335,280" stroke="hsl(var(--animal-fur))" strokeWidth="8" fill="none" strokeLinecap="round" />
     <path d="M315,228 C328,245 340,275 342,300 C343,312 340,318 336,316 C332,312 330,295 328,275" stroke="hsl(var(--animal-fur-shadow))" strokeWidth="6" fill="none" strokeLinecap="round" />
     <path d="M310,230 C320,250 328,280 328,305 C328,315 325,318 322,316 C320,312 318,295 318,275" stroke="hsl(var(--animal-eye))" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.6" />
   </>
 );
 
+/* === HEAD === */
+
 export const ParrotHead = () => (
   <>
-    {/* Round head */}
     <path d="M180,125 C175,108 180,88 195,78 C206,72 220,70 234,72 C248,75 258,85 262,100 C265,115 260,132 250,142 C240,150 228,154 216,154 C204,152 192,148 186,140 C182,135 180,130 180,125 Z" fill="hsl(var(--animal-fur))" />
     {/* Cere (above beak) */}
     <path d="M192,130 C188,125 188,118 194,115 C200,112 208,115 210,120 C212,126 208,132 200,132 C196,132 193,131 192,130 Z" fill="hsl(var(--animal-white-tip))" opacity="0.7" />
   </>
 );
 
+/* === EYES === */
+
 export const ParrotEyes = () => (
   <>
-    {/* White eye ring */}
     <circle cx="218" cy="108" r="10" fill="hsl(var(--animal-white-tip))" opacity="0.6" />
     <ellipse cx="218" cy="108" rx="6" ry="6.5" fill="hsl(var(--animal-eye))" />
     <ellipse cx="218" cy="108" rx="3" ry="4" fill="hsl(var(--animal-pupil))" />
@@ -76,9 +101,11 @@ export const ParrotEyes = () => (
   </>
 );
 
+/* === FACE === */
+
 export const ParrotFace = () => (
   <>
-    {/* Curved beak — upper */}
+    {/* Upper beak */}
     <path d="M190,128 C185,130 178,132 174,130 C170,128 168,122 172,118 C176,114 184,116 190,120 C194,124 192,128 190,128 Z" fill="hsl(var(--animal-nose))" />
     {/* Lower beak */}
     <path d="M190,128 C186,132 180,134 176,132 C173,130 174,126 178,125" fill="hsl(var(--animal-whisker))" opacity="0.5" />
@@ -87,12 +114,14 @@ export const ParrotFace = () => (
   </>
 );
 
-/** Perch/branch for the parrot to stand on */
+/* === PERCH === */
+
 export const ParrotPerch = () => (
   <path d="M200,278 L320,278" stroke="hsl(var(--animal-whisker))" strokeWidth="6" strokeLinecap="round" opacity="0.5" />
 );
 
-/** Wings — visible during flight, pivot from shoulder area */
+/* === WINGS (flight only) === */
+
 export const ParrotWingLeft = () => (
   <g className="f-wing-l">
     <path
@@ -128,6 +157,55 @@ export const ParrotWingRight = () => (
          C355,156 330,158 310,160 Z"
       fill="hsl(var(--animal-fur-shadow))" opacity="0.5"
     />
+  </g>
+);
+
+/* === WARNING OVERLAY ========================================================
+ * Parrot threat display — maximum fluff + crest + dropped wings + open beak:
+ *   - Body puff: AnimalSVG scales the body group to ~1.15 in both axes
+ *   - Raised crest: a fan of 5 feather quills radiating from the crown
+ *   - Dropped wings: two short drooped feather edges hanging below the body
+ *   - Open beak: upper beak lifted, lower dropped, gap visible
+ *   - Hard stare: larger pupil ring
+ * =========================================================================== */
+
+export const ParrotWarning = () => (
+  <g>
+    {/* Raised crest — fan of feather quills from crown */}
+    <line x1="218" y1="72" x2="208" y2="48" stroke="hsl(var(--animal-fur))" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="222" y1="70" x2="215" y2="45" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="226" y1="70" x2="224" y2="44" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="230" y1="71" x2="232" y2="46" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="234" y1="73" x2="240" y2="50" stroke="hsl(var(--animal-fur-highlight))" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Crest tip spots */}
+    <circle cx="208" cy="47" r="3" fill="hsl(var(--animal-fur-highlight))" opacity="0.8" />
+    <circle cx="215" cy="44" r="3" fill="hsl(var(--animal-fur-highlight))" opacity="0.8" />
+    <circle cx="224" cy="43" r="3.5" fill="hsl(var(--animal-fur-highlight))" opacity="0.9" />
+    <circle cx="232" cy="45" r="3" fill="hsl(var(--animal-fur-highlight))" opacity="0.8" />
+    <circle cx="240" cy="49" r="2.5" fill="hsl(var(--animal-fur-highlight))" opacity="0.7" />
+
+    {/* Dropped warning wings — short drooped feather edges hanging from body sides */}
+    <path d="M200,165 C188,170 178,182 178,195 C182,190 188,183 198,178" stroke="hsl(var(--animal-fur))" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.7" />
+    <path d="M320,165 C332,170 342,182 342,195 C338,190 332,183 322,178" stroke="hsl(var(--animal-fur))" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.7" />
+
+    {/* Open beak — upper lifted, lower dropped */}
+    <path d="M190,122 C185,126 178,126 174,124 C170,120 170,114 175,111 C180,108 188,111 192,116 Z" fill="hsl(var(--animal-nose))" />
+    <path d="M190,128 C186,134 180,138 174,136 C170,132 172,126 178,124 C183,122 188,124 190,128 Z" fill="hsl(var(--animal-whisker))" opacity="0.8" />
+    {/* Gap between beaks */}
+    <path d="M178,125 C182,127 187,127 190,125" stroke="hsl(0 0% 5%)" strokeWidth="1.5" fill="none" opacity="0.6" />
+
+    {/* Larger warning pupil */}
+    <circle cx="218" cy="108" r="5" fill="hsl(var(--animal-pupil))" />
+
+    {/* Feather fluff texture on body sides — short radiating lines */}
+    <line x1="200" y1="140" x2="190" y2="130" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="198" y1="155" x2="186" y2="148" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="198" y1="170" x2="185" y2="166" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="200" y1="185" x2="187" y2="183" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="335" y1="140" x2="346" y2="130" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="337" y1="155" x2="349" y2="148" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="337" y1="170" x2="350" y2="166" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+    <line x1="335" y1="185" x2="348" y2="183" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
   </g>
 );
 

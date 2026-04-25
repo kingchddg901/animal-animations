@@ -1,7 +1,28 @@
-/** Raccoon — chunky body, bandit mask, ringed tail, hand-like paws */
+/**
+ * RaccoonPaths.tsx
+ * =============================================================================
+ * Raccoon — chunky body, bandit mask, ringed tail, hand-like paws.
+ *
+ * === EXPORTS ===
+ *  default  RaccoonBody
+ *  named    RaccoonFrontLeftLeg, RaccoonFrontRightLeg,
+ *           RaccoonBackLeftLeg, RaccoonBackRightLeg
+ *  named    RaccoonTail
+ *  named    RaccoonHead
+ *  named    RaccoonEyes
+ *  named    RaccoonFace
+ *  named    RaccoonWarning — arched back, fully puffed tail (rings still
+ *                            visible), rocked-back weight, open hiss mouth.
+ *                            Rendered as an additive layer by AnimalSVG when
+ *                            pose === "warning".
+ * =============================================================================
+ */
+
+/* === BODY === */
+
 const RaccoonBody = () => (
   <>
-    {/* Chunky rounded torso — raccoons are pudgy */}
+    {/* Chunky rounded torso */}
     <path
       d="M145,150 C152,132 180,120 220,117
          C260,115 300,120 325,130
@@ -23,10 +44,12 @@ const RaccoonBody = () => (
          C170,218 168,205 175,190 Z"
       fill="hsl(var(--animal-fur-highlight))" opacity="0.35"
     />
-    {/* Neck — thicker */}
+    {/* Neck */}
     <path d="M152,148 C146,142 140,138 136,138 C130,140 130,146 134,152 C138,158 146,162 152,162" fill="hsl(var(--animal-fur))" />
   </>
 );
+
+/* === LEGS === */
 
 export const RaccoonFrontLeftLeg = () => (
   <g>
@@ -84,9 +107,10 @@ export const RaccoonBackRightLeg = () => (
   </g>
 );
 
+/* === TAIL === */
+
 export const RaccoonTail = () => (
   <>
-    {/* Thick bushy tail with prominent rings */}
     <path
       d="M352,170 C362,155 370,132 374,108
          C376,88 374,72 368,68
@@ -94,7 +118,7 @@ export const RaccoonTail = () => (
          C358,95 360,115 358,135"
       stroke="hsl(var(--animal-fur))" strokeWidth="16" fill="none" strokeLinecap="round"
     />
-    {/* Dark rings — thick and obvious */}
+    {/* Dark rings */}
     <path d="M372,115 C373,108 373,100 372,94" stroke="hsl(var(--animal-pupil))" strokeWidth="16" fill="none" strokeLinecap="round" opacity="0.6" />
     <path d="M366,140 C368,132 369,124 369,118" stroke="hsl(var(--animal-pupil))" strokeWidth="16" fill="none" strokeLinecap="round" opacity="0.5" />
     <path d="M374,88 C375,82 374,76 372,72" stroke="hsl(var(--animal-pupil))" strokeWidth="16" fill="none" strokeLinecap="round" opacity="0.6" />
@@ -103,9 +127,10 @@ export const RaccoonTail = () => (
   </>
 );
 
+/* === HEAD === */
+
 export const RaccoonHead = () => (
   <>
-    {/* Wider, rounder head */}
     <path
       d="M104,132 C100,112 106,90 122,80
          C134,72 150,68 166,70
@@ -116,7 +141,7 @@ export const RaccoonHead = () => (
          C106,146 104,140 104,132 Z"
       fill="hsl(var(--animal-fur))"
     />
-    {/* White face — broader, covering cheeks and forehead stripe */}
+    {/* White face */}
     <path
       d="M125,140 C122,128 126,115 136,108
          C144,103 155,103 163,108
@@ -125,9 +150,9 @@ export const RaccoonHead = () => (
          C138,160 128,152 125,140 Z"
       fill="hsl(var(--animal-white-tip))" opacity="0.7"
     />
-    {/* Forehead stripe — white line between the eyes */}
+    {/* Forehead stripe */}
     <path d="M148,80 C148,88 148,96 148,108" stroke="hsl(var(--animal-white-tip))" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.5" />
-    {/* Rounded ears — short, not pointed */}
+    {/* Rounded ears */}
     <ellipse cx="118" cy="72" rx="10" ry="14" fill="hsl(var(--animal-fur))" />
     <ellipse cx="118" cy="72" rx="6" ry="9" fill="hsl(var(--animal-ear-inner))" />
     <ellipse cx="178" cy="72" rx="10" ry="14" fill="hsl(var(--animal-fur))" />
@@ -135,9 +160,11 @@ export const RaccoonHead = () => (
   </>
 );
 
+/* === EYES === */
+
 export const RaccoonEyes = () => (
   <>
-    {/* Bandit mask — single dark band across both eyes */}
+    {/* Bandit mask */}
     <path
       d="M112,108 C114,98 124,92 136,92
          C148,92 154,96 158,100
@@ -149,7 +176,6 @@ export const RaccoonEyes = () => (
          C118,128 112,118 112,108 Z"
       fill="hsl(var(--animal-pupil))" opacity="0.75"
     />
-    {/* Eyes — bright against the dark mask */}
     <ellipse cx="136" cy="112" rx="6" ry="6.5" fill="hsl(var(--animal-eye))" />
     <ellipse cx="136" cy="112" rx="3" ry="4" fill="hsl(var(--animal-pupil))" />
     <circle cx="138" cy="110" r="2" fill="hsl(var(--animal-white-tip))" opacity="0.9" />
@@ -159,15 +185,70 @@ export const RaccoonEyes = () => (
   </>
 );
 
+/* === FACE === */
+
 export const RaccoonFace = () => (
   <>
-    {/* Pointier snout with dark nose */}
     <path d="M148,138 C144,142 140,148 140,152 C140,156 144,158 148,156 C152,154 155,150 156,146 C157,150 160,154 164,156 C168,158 172,156 172,152 C172,148 168,142 164,138" fill="hsl(var(--animal-fur-highlight))" opacity="0.5" />
     <ellipse cx="156" cy="142" rx="5" ry="4" fill="hsl(var(--animal-nose))" />
-    {/* Mouth line */}
     <path d="M156,146 C154,150 152,152 150,153" stroke="hsl(var(--animal-whisker))" strokeWidth="0.8" fill="none" />
     <path d="M156,146 C158,150 160,152 162,153" stroke="hsl(var(--animal-whisker))" strokeWidth="0.8" fill="none" />
   </>
+);
+
+/* === WARNING OVERLAY ========================================================
+ * Raccoon threat display — arched back + puffed tail:
+ *   - Spiky dorsal ridge from neck to tail base (shorter quills than dog,
+ *     dense and scrubby like raccoon fur texture)
+ *   - Massively puffed tail bristles radiating outward from both sides of
+ *     the existing tail stroke; rings remain visible through the bristle layer
+ *   - Open hiss: lip raised exposing small front teeth, chin tucked
+ *   - Wide eyes: round dilated pupils, brow pulled down
+ * =========================================================================== */
+
+export const RaccoonWarning = () => (
+  <g>
+    {/* Dorsal hackle ridge — short scrubby quills */}
+    <line x1="152" y1="146" x2="146" y2="126" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="168" y1="136" x2="163" y2="115" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="188" y1="127" x2="184" y2="105" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="210" y1="121" x2="208" y2="99" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="234" y1="118" x2="233" y2="96" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="258" y1="117" x2="258" y2="95" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="282" y1="118" x2="283" y2="96" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="304" y1="122" x2="307" y2="100" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="322" y1="130" x2="327" y2="109" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+    <line x1="338" y1="140" x2="345" y2="121" stroke="hsl(var(--animal-fur))" strokeWidth="3" strokeLinecap="round" />
+
+    {/* Puffed tail bristles — left side */}
+    <line x1="354" y1="158" x2="342" y2="150" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="362" y1="143" x2="349" y2="136" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="368" y1="128" x2="354" y2="122" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="373" y1="112" x2="358" y2="107" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="374" y1="96" x2="360" y2="92" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="371" y1="80" x2="357" y2="78" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    {/* Puffed tail bristles — right side */}
+    <line x1="354" y1="158" x2="368" y2="150" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="362" y1="143" x2="377" y2="136" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="368" y1="128" x2="384" y2="122" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="373" y1="112" x2="390" y2="107" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="374" y1="96" x2="390" y2="92" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+    <line x1="371" y1="80" x2="386" y2="78" stroke="hsl(var(--animal-fur))" strokeWidth="2" strokeLinecap="round" />
+
+    {/* Brow crunch */}
+    <path d="M128,100 C132,96 138,95 142,98" stroke="hsl(var(--animal-pupil))" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.9" />
+    <path d="M154,98 C158,95 164,96 168,100" stroke="hsl(var(--animal-pupil))" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.9" />
+
+    {/* Wide round warning pupils */}
+    <circle cx="136" cy="112" r="5.5" fill="hsl(var(--animal-pupil))" />
+    <circle cx="170" cy="112" r="5.5" fill="hsl(var(--animal-pupil))" />
+
+    {/* Open hiss mouth — lip raised, teeth showing */}
+    <path d="M144,150 C148,154 156,156 162,153 C158,150 150,149 144,150 Z" fill="hsl(0 0% 5%)" opacity="0.8" />
+    <rect x="148" y="151" width="3" height="5" rx="0.8" fill="hsl(var(--animal-white-tip))" opacity="0.85" />
+    <rect x="152" y="151" width="3" height="5.5" rx="0.8" fill="hsl(var(--animal-white-tip))" opacity="0.85" />
+    <rect x="156" y="151" width="3" height="5" rx="0.8" fill="hsl(var(--animal-white-tip))" opacity="0.85" />
+  </g>
 );
 
 export default RaccoonBody;
