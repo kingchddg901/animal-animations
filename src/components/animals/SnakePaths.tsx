@@ -153,12 +153,28 @@ const Snake = ({ mode }: SnakeProps) => {
   // === BODY POINTS ============================================================
   const showCoiled  = mode === "alert" || mode === "resting" || mode === "standing";
   const showWarning = mode === "warning";
+  const showCurling = mode === "curling";
 
-  const pts = showWarning
-    ? buildWarningCoilPoints()
-    : showCoiled
-    ? buildCoilPoints()
-    : buildMovingPoints(t);
+  let pts: Array<[number, number]>;
+  if (showWarning) {
+    pts = buildWarningCoilPoints();
+  } else if (showCoiled) {
+    pts = buildCoilPoints();
+  } else if (showCurling) {
+    // Transition stretched → coiled over ~1.2s, then hold coiled
+    const CURL_DURATION = 1.2;
+    const raw = Math.min(1, t / CURL_DURATION);
+    // ease in-out
+    const k = raw < 0.5 ? 2 * raw * raw : 1 - Math.pow(-2 * raw + 2, 2) / 2;
+    const stretched = buildMovingPoints(t);
+    const coiled = buildCoilPoints();
+    pts = stretched.map(([sx, sy], i) => {
+      const [cx, cy] = coiled[i];
+      return [sx + (cx - sx) * k, sy + (cy - sy) * k];
+    });
+  } else {
+    pts = buildMovingPoints(t);
+  }
 
   const pathD = pointsToPath(pts);
 
