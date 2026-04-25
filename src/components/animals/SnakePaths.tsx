@@ -18,8 +18,8 @@ import { useEffect, useRef, useState } from "react";
  *             lifted and rattle shaking
  *
  * === BUGS FIXED (from original) ===
- *  1. FREQUENCY BLOWUP: sin(x * 0.8 * t) changed to sin(x*0.8 + t) —
- *     spatial frequency is now fixed; only phase advances.
+ *  1. FREQUENCY BLOWUP: sin(x * 0.8 * t) changed to sin(x*0.8 - t) —
+ *     spatial frequency is now fixed; only phase advances from head to tail.
  *  2. HEAD DISCONNECT: tangent averaged over TANGENT_SAMPLES leading segments
  *     instead of single pts[0]->pts[1] vector.
  * =============================================================================
@@ -38,7 +38,7 @@ const BODY_WIDTH_TAIL = 4;
 const TANGENT_SAMPLES = 5;
 
 // === WAVE CONSTANTS (intended formula restored) ==============================
-// snakeOffset(x, t) = sin(x*0.8+t) + 0.3*sin(x*1.7+t*1.3) + 0.15*sin(x*2.5+t*0.7)
+// snakeOffset(x, t) = sin(x*0.8-t) + 0.3*sin(x*1.7-t*1.3) + 0.15*sin(x*2.5-t*0.7)
 // x = i * 0.18  (phase coordinate)
 
 const WAVE_AMP = 22;
@@ -57,9 +57,9 @@ function buildMovingPoints(t: number): Array<[number, number]> {
   for (let i = 0; i < SEGMENTS; i++) {
     const x = i * 0.18;
     const wave =
-            Math.sin(x * 0.8  + t) +
-      0.30 * Math.sin(x * 1.7  + t * 1.3) +
-      0.15 * Math.sin(x * 2.5  + t * 0.7);
+            Math.sin(x * 0.8  - t) +
+      0.30 * Math.sin(x * 1.7  - t * 1.3) +
+      0.15 * Math.sin(x * 2.5  - t * 0.7);
     pts.push([HEAD_X + i * SEG_LEN, HEAD_Y + wave * WAVE_AMP]);
   }
   return pts;
