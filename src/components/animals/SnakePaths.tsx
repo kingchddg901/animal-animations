@@ -228,13 +228,13 @@ const Snake = ({ mode }: SnakeProps) => {
   return (
     <g style={{ transition: "none" }}>
 
-      {/* Warning keyframes — rattle shake + head S-curve sway */}
+      {/* Warning keyframes — rattle shake only. Head sway is handled with
+          animateTransform inside the positioned head group so it does not
+          override the head's translate/rotate transform. */}
       {showWarning && (
         <style>{`
-          .sn-warn-head { animation: snWarnHeadSway 0.35s ease-in-out infinite alternate; transform-origin: ${renderHeadX}px ${renderHeadY}px; }
-          .sn-rattle    { animation: snRattleShake 0.08s linear infinite alternate; transform-origin: ${tailPt[0]}px ${tailPt[1]}px; }
-          @keyframes snWarnHeadSway  { 0% { transform: rotate(-8deg); } 100% { transform: rotate(8deg); } }
-          @keyframes snRattleShake   { 0% { transform: translateX(-3px) rotate(-5deg); } 100% { transform: translateX(3px) rotate(5deg); } }
+          .sn-rattle { animation: snRattleShake 0.08s linear infinite alternate; transform-origin: ${tailPt[0]}px ${tailPt[1]}px; }
+          @keyframes snRattleShake { 0% { transform: translateX(-3px) rotate(-5deg); } 100% { transform: translateX(3px) rotate(5deg); } }
         `}</style>
       )}
 
@@ -331,46 +331,57 @@ const Snake = ({ mode }: SnakeProps) => {
       })()}
 
       {/* === HEAD ============================================================
-       * In warning mode gets the snWarnHeadSway class for the side-to-side
-       * intimidation bob.
+       * Warning sway is nested inside the positioned head transform so the
+       * head stays anchored to the body while it rattles.
        * ==================================================================== */}
       <g
-        className={showWarning ? "sn-warn-head" : ""}
         transform={`translate(${renderHeadX} ${renderHeadY}) rotate(${headAngleDeg})`}
         style={{ transition: (showCoiled || showWarning) ? "transform 0.6s ease" : "none" }}
       >
-        <ellipse cx={0} cy={0} rx={26} ry={16} fill="hsl(var(--animal-fur))" />
-        <ellipse cx={-6} cy={-2} rx={22} ry={13} fill="hsl(var(--animal-fur-highlight))" opacity={0.35} />
+        <g>
+          {showWarning && (
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              values="-8 0 0; 8 0 0; -8 0 0"
+              dur="0.7s"
+              repeatCount="indefinite"
+            />
+          )}
 
-        {/* Eyes — wider open in warning */}
-        <circle cx={-6} cy={-6} r={showWarning ? 4 : 3.2} fill="hsl(var(--animal-eye))" />
-        <circle cx={-6} cy={-6} r={showWarning ? 2 : 1.4} fill="hsl(var(--animal-pupil))" />
-        <circle cx={-6} cy={6}  r={showWarning ? 4 : 3.2} fill="hsl(var(--animal-eye))" />
-        <circle cx={-6} cy={6}  r={showWarning ? 2 : 1.4} fill="hsl(var(--animal-pupil))" />
+          <ellipse cx={0} cy={0} rx={26} ry={16} fill="hsl(var(--animal-fur))" />
+          <ellipse cx={-6} cy={-2} rx={22} ry={13} fill="hsl(var(--animal-fur-highlight))" opacity={0.35} />
 
-        {/* Nostrils */}
-        <circle cx={-22} cy={-3} r={1} fill="hsl(var(--animal-nose))" />
-        <circle cx={-22} cy={3}  r={1} fill="hsl(var(--animal-nose))" />
+          {/* Eyes — wider open in warning */}
+          <circle cx={-6} cy={-6} r={showWarning ? 4 : 3.2} fill="hsl(var(--animal-eye))" />
+          <circle cx={-6} cy={-6} r={showWarning ? 2 : 1.4} fill="hsl(var(--animal-pupil))" />
+          <circle cx={-6} cy={6}  r={showWarning ? 4 : 3.2} fill="hsl(var(--animal-eye))" />
+          <circle cx={-6} cy={6}  r={showWarning ? 2 : 1.4} fill="hsl(var(--animal-pupil))" />
 
-        {/* Tongue */}
-        {showTongue && (
-          <g>
-            <path
-              d="M -26 0 Q -36 -1 -42 -4 M -26 0 Q -36 1 -42 4 M -26 0 L -38 0"
-              stroke="hsl(0 70% 50%)"
-              strokeWidth={showWarning ? 2 : 1.4}
-              fill="none"
-              strokeLinecap="round"
-            >
-              <animate
-                attributeName="opacity"
-                values="1;1;0;0;1"
-                dur={showWarning ? "0.4s" : "1.2s"}
-                repeatCount="indefinite"
-              />
-            </path>
-          </g>
-        )}
+          {/* Nostrils */}
+          <circle cx={-22} cy={-3} r={1} fill="hsl(var(--animal-nose))" />
+          <circle cx={-22} cy={3}  r={1} fill="hsl(var(--animal-nose))" />
+
+          {/* Tongue */}
+          {showTongue && (
+            <g>
+              <path
+                d="M -26 0 Q -36 -1 -42 -4 M -26 0 Q -36 1 -42 4 M -26 0 L -38 0"
+                stroke="hsl(0 70% 50%)"
+                strokeWidth={showWarning ? 2 : 1.4}
+                fill="none"
+                strokeLinecap="round"
+              >
+                <animate
+                  attributeName="opacity"
+                  values="1;1;0;0;1"
+                  dur={showWarning ? "0.4s" : "1.2s"}
+                  repeatCount="indefinite"
+                />
+              </path>
+            </g>
+          )}
+        </g>
       </g>
     </g>
   );
