@@ -44,7 +44,23 @@ import ParrotBody, {
 import Snake from "./animals/SnakePaths";
 
 export type AnimalType = "cat" | "dog" | "raccoon" | "parrot" | "snake";
-type Pose = "animating" | "standing" | "curled" | "alert" | "walking" | "warning";
+export type Pose = "animating" | "standing" | "curled" | "alert" | "walking" | "warning";
+
+export interface AnimalSVGProps {
+  /** Controlled animal. If omitted, the component manages its own state. */
+  animal?: AnimalType;
+  /** Called when the user picks a different animal via the built-in selector. */
+  onAnimalChange?: (animal: AnimalType) => void;
+  /** Controlled pose. If omitted, the component manages its own state. */
+  pose?: Pose;
+  /** Called when the user advances the pose via click on the SVG. */
+  onPoseChange?: (pose: Pose) => void;
+  /** Hide the built-in animal selector buttons (useful when driven externally). */
+  hideAnimalSelector?: boolean;
+}
+
+export const ANIMALS: AnimalType[] = ["cat", "dog", "raccoon", "parrot", "snake"];
+export const POSES: Pose[] = ["animating", "standing", "curled", "alert", "walking", "warning"];
 
 // === ANIMAL PARTS MAP ========================================================
 
@@ -154,13 +170,31 @@ const animalLabels: Record<AnimalType, string> = {
 
 // =============================================================================
 
-const AnimalSVG = () => {
-  const [animal, setAnimal] = useState<AnimalType>("cat");
-  const [pose, setPose] = useState<Pose>("animating");
+const AnimalSVG = ({
+  animal: animalProp,
+  onAnimalChange,
+  pose: poseProp,
+  onPoseChange,
+  hideAnimalSelector = false,
+}: AnimalSVGProps = {}) => {
+  const [animalState, setAnimalState] = useState<AnimalType>("cat");
+  const [poseState, setPoseState] = useState<Pose>("animating");
 
-  const animals: AnimalType[] = ["cat", "dog", "raccoon", "parrot", "snake"];
-  const poses: Pose[] = ["animating", "standing", "curled", "alert", "walking", "warning"];
-  const nextPose = () => setPose((p) => poses[(poses.indexOf(p) + 1) % poses.length]);
+  const animal = animalProp ?? animalState;
+  const pose = poseProp ?? poseState;
+
+  const setAnimal = (a: AnimalType) => {
+    if (animalProp === undefined) setAnimalState(a);
+    onAnimalChange?.(a);
+  };
+  const setPose = (next: Pose) => {
+    if (poseProp === undefined) setPoseState(next);
+    onPoseChange?.(next);
+  };
+
+  const animals = ANIMALS;
+  const poses = POSES;
+  const nextPose = () => setPose(poses[(poses.indexOf(pose) + 1) % poses.length]);
 
   const poseLabels: Record<Pose, string> = {
     animating: "Curling",
