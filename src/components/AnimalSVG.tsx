@@ -297,21 +297,23 @@ const AnimalSVG = ({
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Animal selector */}
-      <div className="flex gap-2">
-        {animals.map((a) => (
-          <button
-            key={a}
-            onClick={() => setAnimal(a)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              animal === a
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-secondary-foreground hover:opacity-80"
-            }`}
-          >
-            {animalLabels[a]}
-          </button>
-        ))}
-      </div>
+      {!hideAnimalSelector && (
+        <div className="flex gap-2">
+          {animals.map((a) => (
+            <button
+              key={a}
+              onClick={() => setAnimal(a)}
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                animal === a
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-secondary-foreground hover:opacity-80"
+              }`}
+            >
+              {animalLabels[a]}
+            </button>
+          ))}
+        </div>
+      )}
 
       <svg
         viewBox="-10 -10 500 340"
