@@ -167,7 +167,7 @@ const Snake = ({ mode }: SnakeProps) => {
     // Transition stretched → coiled over ~1.2s, anchored at the tail.
     // The curl now progresses from tail (i = SEGMENTS - 1) toward head (i = 0),
     // so it reads as the tail pinning the coil while the head wraps around it.
-    const CURL_DURATION = 1.2;
+    const CURL_DURATION = 1.56;
     const raw = Math.min(1, t / CURL_DURATION);
     const stretched = buildMovingPoints(t);
     const coiledBase = buildCoilPoints();
