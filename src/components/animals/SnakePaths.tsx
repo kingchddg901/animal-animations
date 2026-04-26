@@ -164,14 +164,26 @@ const Snake = ({ mode }: SnakeProps) => {
   } else if (showCoiled) {
     pts = buildCoilPoints();
   } else if (showCurling) {
-    // Transition stretched → coiled over ~1.2s, then hold coiled
+    // Transition stretched → coiled over ~1.2s, anchored at the tail.
+    // The curl now progresses from tail (i = SEGMENTS - 1) toward head (i = 0),
+    // so it reads as the tail pinning the coil while the head wraps around it.
     const CURL_DURATION = 1.2;
     const raw = Math.min(1, t / CURL_DURATION);
-    // ease in-out
-    const k = raw < 0.5 ? 2 * raw * raw : 1 - Math.pow(-2 * raw + 2, 2) / 2;
     const stretched = buildMovingPoints(t);
-    const coiled = buildCoilPoints();
+    const coiledBase = buildCoilPoints();
+    const stretchedTail = stretched[SEGMENTS - 1];
+    const coiledTail = coiledBase[SEGMENTS - 1];
+    const dx = stretchedTail[0] - coiledTail[0];
+    const dy = stretchedTail[1] - coiledTail[1];
+    const coiled = coiledBase.map(([cx, cy]) => [cx + dx, cy + dy] as [number, number]);
+
     pts = stretched.map(([sx, sy], i) => {
+      const f = i / (SEGMENTS - 1);
+      const segmentStart = (1 - f) * 0.55;
+      const segmentRaw = Math.max(0, Math.min(1, (raw - segmentStart) / (1 - segmentStart)));
+      const k = segmentRaw < 0.5
+        ? 2 * segmentRaw * segmentRaw
+        : 1 - Math.pow(-2 * segmentRaw + 2, 2) / 2;
       const [cx, cy] = coiled[i];
       return [sx + (cx - sx) * k, sy + (cy - sy) * k];
     });
