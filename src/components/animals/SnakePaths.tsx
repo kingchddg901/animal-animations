@@ -66,8 +66,8 @@ function buildMovingPoints(t: number): Array<[number, number]> {
 }
 
 function buildCoilPoints(): Array<[number, number]> {
-  const cx = HEAD_X + 90;
-  const cy = HEAD_Y + 25;
+  const cx = 240;
+  const cy = 160;
   const turns = 2.4;
   const pts: Array<[number, number]> = [];
   for (let i = 0; i < SEGMENTS; i++) {
@@ -87,8 +87,8 @@ function buildCoilPoints(): Array<[number, number]> {
  * The tail end curves upward so the rattle can be drawn above the coil mass.
  */
 function buildWarningCoilPoints(): Array<[number, number]> {
-  const cx = HEAD_X + 85;
-  const cy = HEAD_Y + 30;
+  const cx = 240;
+  const cy = 160;
   const turns = 2.0;
   const pts: Array<[number, number]> = [];
   for (let i = 0; i < SEGMENTS; i++) {
