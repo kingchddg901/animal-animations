@@ -73,9 +73,9 @@ function buildCoilPoints(): Array<[number, number]> {
   for (let i = 0; i < SEGMENTS; i++) {
     const f = i / (SEGMENTS - 1);
     // i = 0 is the HEAD, i = SEGMENTS-1 is the TAIL.
-    // Head sits at the coil center (small radius); tail wraps around the
-    // outside (large radius). Radius therefore grows with f.
-    const r = 10 + f * 60;
+    // Tail sits at the coil center (small radius); head wraps around the
+    // outside (large radius). Radius therefore SHRINKS with f.
+    const r = 70 - f * 60;
     const angle = Math.PI + f * turns * Math.PI * 2;
     pts.push([cx + Math.cos(angle) * r, cy + Math.sin(angle) * r * 0.55]);
   }
